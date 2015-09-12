@@ -1,4 +1,4 @@
-from django.db.models import Model, UUIDField
+from django.db.models import Model, CharField, UUIDField
 
 class PlaceBookRequest(Model):
     title = CharField(max_length=256, blank=False, null=True)
