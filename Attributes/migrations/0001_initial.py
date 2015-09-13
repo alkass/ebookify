@@ -18,6 +18,10 @@ class Migration(migrations.Migration):
                 ('brief', models.TextField(max_length=2000, null=True, blank=True)),
                 ('deprecated', models.BooleanField(default=False)),
             ],
+            options={
+                'verbose_name': 'Author',
+                'verbose_name_plural': 'Authors',
+            },
         ),
         migrations.CreateModel(
             name='Category',
@@ -27,6 +31,10 @@ class Migration(migrations.Migration):
                 ('brief', models.TextField(max_length=2000, null=True, blank=True)),
                 ('deprecated', models.BooleanField(default=False)),
             ],
+            options={
+                'verbose_name': 'Category',
+                'verbose_name_plural': 'Categories',
+            },
         ),
         migrations.CreateModel(
             name='Contributor',
@@ -35,6 +43,10 @@ class Migration(migrations.Migration):
                 ('full_name', models.CharField(max_length=256, unique=True, null=True)),
                 ('deprecated', models.BooleanField(default=False)),
             ],
+            options={
+                'verbose_name': 'Contributor',
+                'verbose_name_plural': 'Contributors',
+            },
         ),
         migrations.CreateModel(
             name='Language',
@@ -43,5 +55,9 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=256, unique=True, null=True)),
                 ('deprecated', models.BooleanField(default=False)),
             ],
+            options={
+                'verbose_name': 'Language',
+                'verbose_name_plural': 'Languages',
+            },
         ),
     ]
