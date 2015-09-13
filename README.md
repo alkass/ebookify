@@ -5,7 +5,7 @@ This is a work in progress
 `./migrate.py`
 
 # Making Migrations
-`./makemigration.py`
+`./makemigrations.py`
 
 # Creating Yourself a Super-User Account
 `./createsuperuser.py`
