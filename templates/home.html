@@ -5,5 +5,8 @@
     <title>ebookify - Your Own Electronic Library</title>
   </head>
   <body>
+    {% for book in books %}
+      <p>{{book.title}}</p>
+    {% endfor %}
   </body>
 </html>

@@ -14,4 +14,4 @@ This is a work in progress
 `./runserver`
 
 # Author
-Fadi Hanna Al-Kass
+[Fadi Hanna Al-Kass](http://github.com/alkass)
