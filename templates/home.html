@@ -5,8 +5,9 @@
     <title>ebookify - Your Own Electronic Library</title>
   </head>
   <body>
-    {% for book in books %}
-      <p>{{book.title}}</p>
+    {% for author in authors %}
+      <h2>{{author.full_name}}</h2>
+      <h4>{{author.brief}}</h4>
     {% endfor %}
   </body>
 </html>

@@ -5,7 +5,7 @@ from .forms import AuthorForm, ContributorForm, LanguageForm, CategoryForm
 
 class AuthorAdmin(ModelAdmin):
     form = AuthorForm
-    list_display = ["full_name", "deprecated"]
+    list_display = ["full_name", "brief", "deprecated"]
 
 class ContributorAdmin(ModelAdmin):
     form = ContributorForm
