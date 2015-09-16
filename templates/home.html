@@ -6,7 +6,9 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/semantic.min.js' %}"></script>
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -54,7 +56,7 @@
                 {{books|length}} books.
               {% endif %}
             </p>
-            <p><a class="btn btn-primary btn-lg destroyable" href="#" role="button">Proceed to the library</a></p>
+            <button class="ui inverted purple button destroyable">Proceed to the library</button>
           </div>
         </div>
       </div>
