@@ -8,13 +8,24 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".destroyable").on("click", function(){
+          $(this).fadeOut(200, function(){
+            $(this).closest(".slidable").slideUp(500, function(){
+              $(this).remove();
+            });
+          });
+        });
+      });
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">
-            <img alt="ebookify" >
+            <img alt="ebookify">
           </a>
         </div>
       </div>
@@ -22,20 +33,31 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1>Hello, ebookify!</h1>
-          {% for author in authors %}
-            <h3 class="clicked">{{author.full_name}}</h3>
-          {% endfor %}
+          <div class="jumbotron slidable">
+            <h1>Welcome to ebookify!</h1>
+            <p>ebookify is a free, open source web-based electronic library project. Get a copy of the project from <a href="http://github.com/alkass/ebookify">GitHub</a></p>
+            <p>We currently maintain a database of
+              {% if authors|length == 1 %}
+                one author,
+              {% else %}
+                {{authors|length}} authors,
+              {% endif %}
+              {% if categories|length == 1 %}
+                one category,
+              {% else %}
+                {{categories|length}} categories,
+              {% endif %}
+              and
+              {% if books|length == 1 %}
+                one book.
+              {% else %}
+                {{books|length}} books.
+              {% endif %}
+            </p>
+            <p><a class="btn btn-primary btn-lg destroyable" href="#" role="button">Proceed to the library</a></p>
+          </div>
         </div>
       </div>
     </div>
-
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $(".clicked").on("click", function(){
-          $(this).fadeOut();
-        });
-      });
-    </script>
   </body>
 </html>

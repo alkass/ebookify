@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'Attributes.views.home', name='home'),
+    url(r'^$', 'Attributes.views.homepage', name='home'),
 ]

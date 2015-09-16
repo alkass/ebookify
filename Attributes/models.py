@@ -6,7 +6,7 @@ class Author(Model):
         verbose_name_plural = "Authors"
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
-    deprecated = BooleanField(default=False)
+    deprecated = BooleanField(help_text="If checked off, all books associated with this author will NOT be discoverable to clients", default=False)
 
     def __unicode__(self):
         return self.full_name
@@ -16,7 +16,7 @@ class Contributor(Model):
         verbose_name = "Contributor"
         verbose_name_plural = "Contributors"
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
-    deprecated = BooleanField(default=False)
+    deprecated = BooleanField(help_text="If checked off, all books associated with this contributor will NOT be discoverable to clients", default=False)
 
     def __unicode__(self):
         return self.full_name
@@ -26,7 +26,7 @@ class Language(Model):
         verbose_name = "Language"
         verbose_name_plural = "Languages"
     name = CharField(max_length=256, unique=True, blank=False, null=True)
-    deprecated = BooleanField(default=False)
+    deprecated = BooleanField(help_text="If checked off, all books associated with this language will NOT be discoverable to clients", default=False)
 
     def __unicode__(self):
         return self.name
@@ -37,7 +37,7 @@ class Category(Model):
         verbose_name_plural = "Categories"
     name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
-    deprecated = BooleanField(default=False)
+    deprecated = BooleanField(help_text="If checked off, all books associated with this category will NOT be discoverable to clients", default=False)
 
     def __unicode__(self):
         return self.name
