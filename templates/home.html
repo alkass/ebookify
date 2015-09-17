@@ -14,7 +14,7 @@
       $(document).ready(function(){
         $(".destroyable").on("click", function(){
           $(this).fadeOut(200, function(){
-            $(this).closest(".slidable").slideUp(500, function(){
+            $(this).parent().slideUp(500, function(){
               $(this).remove();
             });
           });
@@ -35,7 +35,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="jumbotron slidable">
+          <div class="jumbotron">
             <h1>Welcome to ebookify!</h1>
             <p>ebookify is a free, open source web-based electronic library project. Get a copy of the project from <a href="http://github.com/alkass/ebookify">GitHub</a></p>
             <p>We currently maintain a database of
