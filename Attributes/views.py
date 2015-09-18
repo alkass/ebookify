@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Author, Category
-from Data.models import Book
+from .models import Book
 
 def homepage(request):
     authors = Author.objects.all()
