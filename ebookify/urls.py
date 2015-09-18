@@ -19,5 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'Attributes.views.homepage', name='home'),
-    url(r'^qr/(?P<identification>([A-Za-z0-9]+\-?)+)/$', 'UI.views.get_qr_code', name='qr'),
+    url(r'^qr/(?P<identification>([A-Za-z0-9]+\-?)+)/$', 'UI.views.get_qr_code_image', name='qr'),
 ]
