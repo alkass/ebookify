@@ -1,17 +1,9 @@
 # ebookify
 This is a work in progress
 
-# Migration
-`./migrate.py`
-
-# Making Migrations
-`./makemigrations.py`
-
-# Creating Yourself a Super-User Account
-`./createsuperuser.py`
-
-# Running The Project
-`./runserver`
+# Requirements
+* virtualenv (sudo apt-get install virtualenv)
+* python-dev (sudo apt-get install python-dev)
 
 # Author
 [Fadi Hanna Al-Kass](http://github.com/alkass)
