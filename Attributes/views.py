@@ -3,7 +3,7 @@ from .models import Author, Category
 from .models import Book
 
 def homepage(request):
-    authors = Author.objects.all()
-    categories = Category.objects.all()
-    books = Book.objects.all()
+    authors = Author.objects.all().exclude(deprecated=True)
+    categories = Category.objects.all().exclude(deprecated=True)
+    books = Book.objects.all().exclude(deprecated=True)
     return render(request, "home.html", locals())
