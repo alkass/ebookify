@@ -4,6 +4,13 @@ from django.conf import settings
 from pyqrcode import create as create_qrcode
 from PIL import Image, ImageDraw, ImageFont
 from os.path import join
+from Attributes.models import Author, Category, Book
+
+def homepage(request):
+    authors = Author.objects.all().exclude(deprecated=True)
+    categories = Category.objects.all().exclude(deprecated=True)
+    books = Book.objects.all().exclude(deprecated=True)
+    return render(request, "home.html", locals())
 
 def get_qr_code_image(request, identification):
     qr_code_img = create_qrcode("%s/%s" % (settings.PUBLIC_HOST_ADDRESS, identification))
@@ -20,3 +27,10 @@ def get_author_initials_image(request, full_name):
         initials = "%s%s" % (tokenized_name[0][0], tokenized_name[-1][0])
     initials_file_path = join(settings.STATICFILES_DIRS[0], "media", "author_initials", "%s.png" % initials)
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
+
+def view(request, identification):
+    book_info = Book.objects.filter(identification=identification)
+    return HttpResponse(book_info["language"])
+
+def download(request, identification):
+    return HttpResponse("this feature has not been implemented yet")

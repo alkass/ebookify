@@ -18,7 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'Attributes.views.homepage', name='home'),
-    url(r'^qr/(?P<identification>([A-Za-z0-9]+\-?)+)/$', 'UI.views.get_qr_code_image', name='qr'),
+    url(r'^$', 'UI.views.homepage', name='home'),
+    url(r'^view/(?P<identification>(([A-Za-z0-9]+[-])+[A-Za-z0-9]+)+)/$', 'UI.views.view', name='view'),
+    url(r'^download/(?P<identification>(([A-Za-z0-9]+[-])+[A-Za-z0-9]+)+)/$', 'UI.views.download', name='view'),
+    url(r'^qr/(?P<identification>(([A-Za-z0-9]+[-])+[A-Za-z0-9]+)+)/$', 'UI.views.get_qr_code_image', name='qr'),
     url(r'^initials/(?P<full_name>(.*))/$', 'UI.views.get_author_initials_image', name='initials'),
 ]
