@@ -1,7 +1,7 @@
 from django.contrib.admin import site
 from django.contrib.admin import ModelAdmin
-from .models import Author, Contributor, Language, Category, Book
-from .forms import AuthorForm, ContributorForm, LanguageForm, CategoryForm, BookForm
+from .models import Author, Contributor, Language, Category, Book, BookFeedback
+from .forms import AuthorForm, ContributorForm, LanguageForm, CategoryForm, BookForm, BookFeedbackForm
 
 class AuthorAdmin(ModelAdmin):
     def deprecate_selected(modeladmin, request, queryset):
@@ -89,8 +89,18 @@ class BookAdmin(ModelAdmin):
     readonly_fields = ["identification"]
     actions = [deprecate_selected, undeprecate_selected]
 
+class BookFeedbackAdmin(ModelAdmin):
+    def deprecate_selected(modeladmin, request, queryset):
+        queryset.update(deprecated=True)
+    def undeprecate_selected(modeladmin, request, queryset):
+        queryset.update(deprecated=False)
+    form = BookFeedbackForm
+    list_display = ["book", "feedback", "deprecated"]
+    actions = [deprecate_selected, undeprecate_selected]
+
 site.register(Author, AuthorAdmin)
 site.register(Contributor, ContributorAdmin)
 site.register(Language, LanguageAdmin)
 site.register(Category, CategoryAdmin)
 site.register(Book, BookAdmin)
+site.register(BookFeedback, BookFeedbackAdmin)

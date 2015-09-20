@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Author, Contributor, Language, Category, Book
+from .models import Author, Contributor, Language, Category, Book, BookFeedback
 from re import sub
 
 class AuthorForm(ModelForm):
@@ -45,3 +45,8 @@ class BookForm(ModelForm):
         ]
     def clean_title(self):
         return sub("[ \t]+", " ", self.cleaned_data["title"]).strip().title()
+
+class BookFeedbackForm(ModelForm):
+    class Meta:
+        model = BookFeedback
+        fields = ["book", "feedback", "deprecated"]

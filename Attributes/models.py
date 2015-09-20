@@ -8,7 +8,6 @@ class Author(Model):
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
     deprecated = BooleanField(help_text="If checked off, all books associated with this author will NOT be discoverable to clients", default=False)
-
     def __unicode__(self):
         return self.full_name
 
@@ -18,7 +17,6 @@ class Contributor(Model):
         verbose_name_plural = "Contributors"
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
     deprecated = BooleanField(help_text="If checked off, all books associated with this contributor will NOT be discoverable to clients", default=False)
-
     def __unicode__(self):
         return self.full_name
 
@@ -28,7 +26,6 @@ class Language(Model):
         verbose_name_plural = "Languages"
     name = CharField(max_length=256, unique=True, blank=False, null=True)
     deprecated = BooleanField(help_text="If checked off, all books associated with this language will NOT be discoverable to clients", default=False)
-
     def __unicode__(self):
         return self.name
 
@@ -39,7 +36,6 @@ class Category(Model):
     name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
     deprecated = BooleanField(help_text="If checked off, all books associated with this category will NOT be discoverable to clients", default=False)
-
     def __unicode__(self):
         return self.name
 
@@ -70,6 +66,15 @@ class Book(Model):
     description = TextField(max_length=2000, blank=True, null=True)
     deprecated = BooleanField(help_text="If checked off, this book will NOT be discoverable to clients", default=False)
     identification = UUIDField("Book ID", default=uuid4, null=True)
-
     def __unicode__(self):
         return self.title
+
+class BookFeedback(Model):
+    class Meta:
+        verbose_name = "Book Feedback"
+        verbose_name_plural = "Book Feedbacks"
+    book = ForeignKey(Book)
+    feedback = TextField(max_length=1000, blank=False, null=True)
+    deprecated = BooleanField(help_text="If checked off, this comment will be hidden from the book list of reviews", default=False)
+    def __unicode__(self):
+        return str(self.book)
