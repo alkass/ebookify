@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 from pyqrcode import create as create_qrcode
-from PIL import Image, ImageDraw, ImageFont
 from os.path import join
 from Attributes.models import Author, Category, Book
 
