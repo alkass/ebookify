@@ -12,12 +12,8 @@
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $(".destroyable").on("click", function(){
-          $(this).fadeOut(200, function(){
-            $(this).parent().slideUp(500, function(){
-              $(this).remove();
-            });
-          });
+        $(".download").click(function(){
+          $(this).text("Downloading...");
         });
       });
     </script>
@@ -40,17 +36,43 @@
             <hr>
             {% for author in book.authors %}
               {% if author != None %}
-                <a href="#"><h3>{{author}}</h3></a>
-                <h4>{{author.brief}}</h4>
+                <a href="#"><h3>{{author}}</h3></a>Author
+                <h5>{{author.brief}}</h5>
+                <br>
               {% endif %}
             {% endfor %}
 
+            {% if book.description|length > 0 %}
+              <a href="#"><h3>Description</h3></a>Book Overview
+              <h5>{{book.description}}</h5>
+              <br>
+            {% endif %}
+
             {% for category in book.categories %}
               {% if category != None %}
-                <a href="#"><h3>{{category}}</h3></a>
-                <h4>{{category.brief}}</h4>
+                <a href="#"><h3>{{category}}</h3></a>Category
+                <h5>{{category.brief}}</h5>
+                <br>
               {% endif %}
             {% endfor %}
+
+            <button class="ui inverted purple button download">Download PDF</button>
+            <button class="ui inverted purple button download">Download EPUB</button>
+
+            <h5>
+              This book has been viewed
+              {% if book.num_views == 1 %}
+                one time
+              {% else %}
+                {{book.num_views}} times
+              {% endif %}
+              and downloaded
+              {% if book.num_downloads == 1 %}
+                one time
+              {% else %}
+                {{book.num_downloads}} times.
+              {% endif %}
+            </h5>
           </div>
         </div>
       </div>
@@ -61,7 +83,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="jumbotron">
-              <h3>{{feedback.feedback}}</h3>
+            {% for line in feedback.feedback %}
+              <h4>{{line}}</h4>
+            {% endfor %}
           </div>
         </div>
       </div>

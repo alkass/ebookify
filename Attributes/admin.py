@@ -85,8 +85,16 @@ class BookAdmin(ModelAdmin):
     def undeprecate_selected(modeladmin, request, queryset):
         queryset.update(deprecated=False)
     form = BookForm
-    list_display = ["title", "author1", "author2", "author5", "language", "category1", "category2", "deprecated"]
-    readonly_fields = ["identification"]
+    list_display = [
+        "title",
+        "author1", "author2", "author3",
+        "language",
+        "category1", "category2",
+        "num_views",
+        "num_downloads",
+        "deprecated"
+        ]
+    readonly_fields = ["identification", "num_views", "num_downloads"]
     actions = [deprecate_selected, undeprecate_selected]
 
 class BookFeedbackAdmin(ModelAdmin):

@@ -28,16 +28,20 @@ def initials(request, full_name):
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
 def view(request, identification):
-    book = Book.objects.exclude(deprecated=True).filter(identification=identification)[0]
+    book = Book.objects.exclude(deprecated=True).get(identification=identification)
+    book.num_views += 1
+    book.save()
     feedbacks = BookFeedback.objects.filter(book=book).exclude(deprecated=True)
-    book.authors = [
+    for i in range(len(feedbacks)):
+        feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
+    book.authors = set([
         book.author1,
         book.author2,
         book.author3,
         book.author4,
         book.author5
-        ]
-    book.categories = [
+        ])
+    book.categories = set([
         book.category1,
         book.category2,
         book.category3,
@@ -48,7 +52,7 @@ def view(request, identification):
         book.category8,
         book.category9,
         book.category10
-        ]
+        ])
     return render(request, "view.html", locals())
 
 def download(request, identification):

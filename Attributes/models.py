@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, TextField, BooleanField, UUIDField, ForeignKey
+from django.db.models import Model, CharField, TextField, BooleanField, UUIDField, ForeignKey, IntegerField
 from uuid import uuid4
 
 class Author(Model):
@@ -64,6 +64,8 @@ class Book(Model):
     category9 = ForeignKey(Category, related_name="category9", blank=True, null=True)
     category10 = ForeignKey(Category, related_name="category10", blank=True, null=True)
     description = TextField(max_length=2000, blank=True, null=True)
+    num_views = IntegerField("Views", default=0)
+    num_downloads = IntegerField("Downloads", default=0)
     deprecated = BooleanField(help_text="If checked off, this book will NOT be discoverable to clients", default=False)
     identification = UUIDField("Book ID", default=uuid4, null=True)
     def __unicode__(self):
