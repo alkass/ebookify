@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from pyqrcode import create as create_qrcode
 from os.path import join
-from Attributes.models import Author, Category, Book
+from Attributes.models import Author, Category, Book, BookFeedback
 
 def homepage(request):
     authors = Author.objects.all().exclude(deprecated=True)
@@ -29,6 +29,7 @@ def initials(request, full_name):
 
 def view(request, identification):
     book = Book.objects.exclude(deprecated=True).filter(identification=identification)[0]
+    feedbacks = BookFeedback.objects.filter(book=book).exclude(deprecated=True)
     book.authors = [
         book.author1,
         book.author2,
