@@ -28,8 +28,27 @@ def initials(request, full_name):
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
 def view(request, identification):
-    book_info = Book.objects.filter(identification=identification)
-    return HttpResponse(book_info["language"])
+    book = Book.objects.exclude(deprecated=True).filter(identification=identification)[0]
+    book.authors = [
+        book.author1,
+        book.author2,
+        book.author3,
+        book.author4,
+        book.author5
+        ]
+    book.categories = [
+        book.category1,
+        book.category2,
+        book.category3,
+        book.category4,
+        book.category5,
+        book.category6,
+        book.category7,
+        book.category8,
+        book.category9,
+        book.category10
+        ]
+    return render(request, "view.html", locals())
 
 def download(request, identification):
     return HttpResponse("this feature has not been implemented yet")
