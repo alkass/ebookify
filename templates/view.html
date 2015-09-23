@@ -17,7 +17,13 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $(".download").click(function(){
-          $(this).text("Downloading...");
+          var new_text = "Downloading..."
+          if ($(this).text() != new_text)
+          {
+            $(this).slideToggle(100).slideToggle(100, function(){
+              $(this).text(new_text);
+            });
+          }
         });
       });
     </script>
@@ -39,27 +45,45 @@
           {% if error %}
             <h3>{{error}}</h3>
           {% else %}
-              <h2>{{book.title}}</h2>
+              <h2 class="managable">{{book.title}}</h2>
+              {{book.subtitle}}
               <hr>
+
               {% for author in book.authors %}
-                <a href="#"><h3>{{author}}</h3></a><i>Author</i>
+                <a href="#"><h3>{{author}}</h3></a>
+                <i>Author</i>
                 {% for line in author.brief %}
                   <h5>{{line}}</h5>
                 {% endfor %}
                 <br>
               {% endfor %}
 
-              <a href="#"><h3>{{book.language}}</h3></a><i>Language</i>
+              {% for contributor in book.contributors %}
+                <a href="#"><h3>{{contributor}}</h3></a>
+                <i>Contributor</i>
+                <h4></h4>
+              {% endfor %}
+
+              {% if book.num_pages > 0 %}
+                <a href="#"><h3>{{book.num_pages}}</h3></a>
+                <i>Number of Pages</i>
+                <h4></h4>
+              {% endif %}
+
+              <a href="#"><h3>{{book.language}}</h3></a>
+              <i>Language</i>
               <h4></h4>
 
               {% if book.description|length > 0 %}
-                <a href="#"><h3>Description</h3></a><i>Book Overview</i>
+                <a href="#"><h3>Description</h3></a>
+                <i>Book Overview</i>
                 <h5>{{book.description}}</h5>
                 <br>
               {% endif %}
 
               {% for category in book.categories %}
-                <a href="#"><h3>{{category}}</h3></a><i>Category</i>
+                <a href="#"><h3>{{category}}</h3></a>
+                <i>Category</i>
                 {% for line in category.brief %}
                   <h5>{{line}}</h5>
                 {% endfor %}
@@ -89,11 +113,14 @@
       </div>
     </div>
 
+    {% if not error %}
     {% for feedback in feedbacks %}
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="jumbotron">
+            <h3>{{feedback.feedback_date}}</h3>
+            <br>
             {% for line in feedback.feedback %}
               <h4>{{line}}</h4>
             {% endfor %}
@@ -102,5 +129,6 @@
       </div>
     </div>
     {% endfor %}
+    {% endif %}
   </body>
 </html>

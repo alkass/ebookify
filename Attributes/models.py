@@ -45,6 +45,7 @@ class Book(Model):
         verbose_name = "Book"
         verbose_name_plural = "Books"
     title = CharField(max_length=256, blank=False, null=True)
+    subtitle = CharField(max_length=256, blank=True, null=True)
     author1 = ForeignKey(Author, related_name="author1", null=True)
     author2 = ForeignKey(Author, related_name="author2", blank=True, null=True)
     author3 = ForeignKey(Author, related_name="author3", blank=True, null=True)
@@ -66,6 +67,7 @@ class Book(Model):
     category10 = ForeignKey(Category, related_name="category10", blank=True, null=True)
     file1 = FileField(upload_to=settings.DATABASE_DIR)
     description = TextField(max_length=2000, blank=True, null=True)
+    num_pages = IntegerField("number of Pages", default=0)
     num_views = IntegerField("Views", default=0)
     num_downloads = IntegerField("Downloads", default=0)
     discoverable = BooleanField(help_text="Make this book discoverable to view and download", default=True)
@@ -80,6 +82,6 @@ class BookFeedback(Model):
     book = ForeignKey(Book)
     feedback = TextField(max_length=1000, blank=False, null=True)
     feedback_date = DateTimeField(auto_now=False, auto_now_add=True)
-    discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=False)
+    discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=True)
     def __unicode__(self):
         return str(self.book)

@@ -34,7 +34,7 @@ class BookForm(ModelForm):
     class Meta:
         model = Book
         fields = [
-        "title",
+        "title", "subtitle",
         "author1", "author2", "author3", "author4", "author5",
         "contributor1", "contributor2", "contributor3",
         "language",
@@ -42,10 +42,13 @@ class BookForm(ModelForm):
         "category6", "category7", "category8", "category9", "category10",
         "file1",
         "description",
+        "num_pages",
         "discoverable"
         ]
     def clean_title(self):
         return sub("[ \t]+", " ", self.cleaned_data["title"]).strip().title()
+    def clean_subtitle(self):
+        return sub("[ \t]+", " ", self.cleaned_data["subtitle"]).strip().title()
 
 class BookFeedbackForm(ModelForm):
     class Meta:

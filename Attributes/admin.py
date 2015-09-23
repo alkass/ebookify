@@ -86,10 +86,11 @@ class BookAdmin(ModelAdmin):
         queryset.update(discoverable=False)
     form = BookForm
     list_display = [
-        "title",
+        "title", "subtitle",
         "author1", "author2",
         "language",
         "category1", "category2",
+        "num_pages",
         "num_views",
         "num_downloads",
         "discoverable"
