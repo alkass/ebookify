@@ -1,4 +1,5 @@
-from django.db.models import Model, CharField, TextField, BooleanField, UUIDField, ForeignKey, IntegerField
+from django.db.models import Model, CharField, TextField, BooleanField, UUIDField, ForeignKey, IntegerField, FileField, DateTimeField
+from django.conf import settings
 from uuid import uuid4
 
 class Author(Model):
@@ -7,7 +8,7 @@ class Author(Model):
         verbose_name_plural = "Authors"
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
-    deprecated = BooleanField(help_text="If checked off, all books associated with this author will NOT be discoverable to clients", default=False)
+    discoverable = BooleanField(help_text="If checked off, all books associated with this author will be discoverable to clients", default=True)
     def __unicode__(self):
         return self.full_name
 
@@ -16,7 +17,7 @@ class Contributor(Model):
         verbose_name = "Contributor"
         verbose_name_plural = "Contributors"
     full_name = CharField(max_length=256, unique=True, blank=False, null=True)
-    deprecated = BooleanField(help_text="If checked off, all books associated with this contributor will NOT be discoverable to clients", default=False)
+    discoverable = BooleanField(help_text="If checked off, all books associated with this contributor will be discoverable to clients", default=True)
     def __unicode__(self):
         return self.full_name
 
@@ -25,7 +26,7 @@ class Language(Model):
         verbose_name = "Language"
         verbose_name_plural = "Languages"
     name = CharField(max_length=256, unique=True, blank=False, null=True)
-    deprecated = BooleanField(help_text="If checked off, all books associated with this language will NOT be discoverable to clients", default=False)
+    discoverable = BooleanField(help_text="If checked off, all books associated with this language will be discoverable to clients", default=True)
     def __unicode__(self):
         return self.name
 
@@ -35,7 +36,7 @@ class Category(Model):
         verbose_name_plural = "Categories"
     name = CharField(max_length=256, unique=True, blank=False, null=True)
     brief = TextField(max_length=2000, blank=True, null=True)
-    deprecated = BooleanField(help_text="If checked off, all books associated with this category will NOT be discoverable to clients", default=False)
+    discoverable = BooleanField(help_text="If checked off, all books associated with this category will be discoverable to clients", default=True)
     def __unicode__(self):
         return self.name
 
@@ -52,7 +53,7 @@ class Book(Model):
     contributor1 = ForeignKey(Contributor, related_name="contributor1", blank=True, null=True)
     contributor2 = ForeignKey(Contributor, related_name="contributor2", blank=True, null=True)
     contributor3 = ForeignKey(Contributor, related_name="contributor3", blank=True, null=True)
-    language = ForeignKey(Language, blank=True, null=True)
+    language = ForeignKey(Language, blank=False, null=True)
     category1 = ForeignKey(Category, related_name="category1", null=True)
     category2 = ForeignKey(Category, related_name="category2", blank=True, null=True)
     category3 = ForeignKey(Category, related_name="category3", blank=True, null=True)
@@ -63,10 +64,11 @@ class Book(Model):
     category8 = ForeignKey(Category, related_name="category8", blank=True, null=True)
     category9 = ForeignKey(Category, related_name="category9", blank=True, null=True)
     category10 = ForeignKey(Category, related_name="category10", blank=True, null=True)
+    file1 = FileField(upload_to=settings.DATABASE_DIR)
     description = TextField(max_length=2000, blank=True, null=True)
     num_views = IntegerField("Views", default=0)
     num_downloads = IntegerField("Downloads", default=0)
-    deprecated = BooleanField(help_text="If checked off, this book will NOT be discoverable to clients", default=False)
+    discoverable = BooleanField(help_text="Make this book discoverable to view and download", default=True)
     identification = UUIDField("Book ID", default=uuid4, null=True)
     def __unicode__(self):
         return self.title
@@ -77,6 +79,7 @@ class BookFeedback(Model):
         verbose_name_plural = "Book Feedbacks"
     book = ForeignKey(Book)
     feedback = TextField(max_length=1000, blank=False, null=True)
-    deprecated = BooleanField(help_text="If checked off, this comment will be hidden from the book list of reviews", default=False)
+    feedback_date = DateTimeField(auto_now=False, auto_now_add=True)
+    discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=False)
     def __unicode__(self):
         return str(self.book)

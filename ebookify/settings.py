@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Attributes',
-    'Services',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,3 +112,5 @@ STATICFILES_DIRS = (
 )
 
 PUBLIC_HOST_ADDRESS = loads(urlopen("https://api.ipify.org/?format=json").readline()).get("ip")
+
+DATABASE_DIR = os.path.join(BASE_DIR, "database")

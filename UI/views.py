@@ -4,11 +4,12 @@ from django.conf import settings
 from pyqrcode import create as create_qrcode
 from os.path import join
 from Attributes.models import Author, Category, Book, BookFeedback
+from random import randint
 
 def homepage(request):
-    authors = Author.objects.all().exclude(deprecated=True)
-    categories = Category.objects.all().exclude(deprecated=True)
-    books = Book.objects.all().exclude(deprecated=True)
+    authors = Author.objects.all().exclude(discoverable=False)
+    categories = Category.objects.all().exclude(discoverable=False)
+    books = Book.objects.all().exclude(discoverable=False)
     return render(request, "home.html", locals())
 
 def qr(request, identification):
@@ -28,20 +29,25 @@ def initials(request, full_name):
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
 def view(request, identification):
-    book = Book.objects.exclude(deprecated=True).get(identification=identification)
+    book = Book.objects.exclude(discoverable=False).get(identification=identification)
     book.num_views += 1
     book.save()
-    feedbacks = BookFeedback.objects.filter(book=book).exclude(deprecated=True)
+    feedbacks = BookFeedback.objects.filter(book=book).exclude(discoverable=False)
     for i in range(len(feedbacks)):
         feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
-    book.authors = set([
+    book.authors = [
         book.author1,
         book.author2,
         book.author3,
         book.author4,
         book.author5
-        ])
-    book.categories = set([
+        ]
+    while book.authors.count(None) > 0:
+        book.authors.remove(None)
+    for i in range(len(book.authors)):
+        book.authors[i].brief = book.authors[i].brief.split("\n")
+    book.authors = set(book.authors)
+    book.categories = [
         book.category1,
         book.category2,
         book.category3,
@@ -52,8 +58,23 @@ def view(request, identification):
         book.category8,
         book.category9,
         book.category10
-        ])
+        ]
+    while book.categories.count(None) > 0:
+        book.categories.remove(None)
+    for i in range(len(book.categories)):
+        book.categories[i].brief = book.categories[i].brief.split("\n")
+    book.categories = set(book.categories)
     return render(request, "view.html", locals())
 
+def view_random(request):
+    books = Book.objects.exclude(discoverable=False)
+    if len(books) == 0:
+        error = "ebookify is currently out of books. Sorry for the inconvenience."
+        return render(request, "view.html", {"error":error})
+    else:
+        book = books[randint(0, len(books) - 1)]
+        return view(request, book.identification)
+
 def download(request, identification):
+
     return HttpResponse("this feature has not been implemented yet")

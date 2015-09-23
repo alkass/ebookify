@@ -2,7 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ebookify - Your Own Electronic Library</title>
+    {% if error %}
+      <title>ebookify - Your Own Electronic Library</title>
+    {% else %}
+      <title>ebookify - {{book.title}}</title>
+    {% endif %}
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
@@ -32,47 +36,54 @@
       <div class="row">
         <div class="col-md-12">
           <div class="jumbotron">
-            <h2>{{book.title}}</h2>
-            <hr>
-            {% for author in book.authors %}
-              {% if author != None %}
-                <a href="#"><h3>{{author}}</h3></a>Author
-                <h5>{{author.brief}}</h5>
+          {% if error %}
+            <h3>{{error}}</h3>
+          {% else %}
+              <h2>{{book.title}}</h2>
+              <hr>
+              {% for author in book.authors %}
+                <a href="#"><h3>{{author}}</h3></a><i>Author</i>
+                {% for line in author.brief %}
+                  <h5>{{line}}</h5>
+                {% endfor %}
+                <br>
+              {% endfor %}
+
+              <a href="#"><h3>{{book.language}}</h3></a><i>Language</i>
+              <h4></h4>
+
+              {% if book.description|length > 0 %}
+                <a href="#"><h3>Description</h3></a><i>Book Overview</i>
+                <h5>{{book.description}}</h5>
                 <br>
               {% endif %}
-            {% endfor %}
 
-            {% if book.description|length > 0 %}
-              <a href="#"><h3>Description</h3></a>Book Overview
-              <h5>{{book.description}}</h5>
-              <br>
-            {% endif %}
-
-            {% for category in book.categories %}
-              {% if category != None %}
-                <a href="#"><h3>{{category}}</h3></a>Category
-                <h5>{{category.brief}}</h5>
+              {% for category in book.categories %}
+                <a href="#"><h3>{{category}}</h3></a><i>Category</i>
+                {% for line in category.brief %}
+                  <h5>{{line}}</h5>
+                {% endfor %}
                 <br>
-              {% endif %}
-            {% endfor %}
+              {% endfor %}
 
-            <button class="ui inverted purple button download">Download PDF</button>
-            <button class="ui inverted purple button download">Download EPUB</button>
+              <button class="ui inverted purple button download">Download PDF</button>
+              <button class="ui inverted purple button download">Download EPUB</button>
 
-            <h5>
-              This book has been viewed
-              {% if book.num_views == 1 %}
-                one time
-              {% else %}
-                {{book.num_views}} times
-              {% endif %}
-              and downloaded
-              {% if book.num_downloads == 1 %}
-                one time
-              {% else %}
-                {{book.num_downloads}} times.
-              {% endif %}
-            </h5>
+              <h5>
+                This book has been viewed
+                {% if book.num_views == 1 %}
+                  one time
+                {% else %}
+                  {{book.num_views}} times
+                {% endif %}
+                and downloaded
+                {% if book.num_downloads == 1 %}
+                  one time
+                {% else %}
+                  {{book.num_downloads}} times.
+                {% endif %}
+              </h5>
+          {% endif %}
           </div>
         </div>
       </div>
