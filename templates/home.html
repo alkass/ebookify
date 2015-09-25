@@ -12,10 +12,15 @@
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $(".destroyable").on("click", function(){
+        $(".destroyable").click(function(){
           $(this).fadeOut(200, function(){
             $(this).parent().slideUp(500, function(){
-              $(this).remove();
+              var html_body = '<h1>What would you like to do?</h1>'
+              html_body += '<button class="ui inverted purple button destroyable">Search the Library</button>'
+              html_body += '<button class="ui inverted purple button destroyable">Upload a Book</button>'
+              html_body += '<button class="ui inverted purple button destroyable">Request a Book</button>'
+              $(this).html(html_body);
+                $(this).slideDown();
             });
           });
         });
