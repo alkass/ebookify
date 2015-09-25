@@ -43,7 +43,8 @@ class BookForm(ModelForm):
         "file1",
         "description",
         "num_pages",
-        "discoverable"
+        "discoverable",
+        "recommended",
         ]
     def clean_title(self):
         return sub("[ \t]+", " ", self.cleaned_data["title"]).strip().title()

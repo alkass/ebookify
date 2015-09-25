@@ -93,5 +93,4 @@ def view_random(request):
         return view(request, book.identification)
 
 def download(request, identification):
-
     return HttpResponse("this feature has not been implemented yet")

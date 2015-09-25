@@ -82,8 +82,16 @@ class CategoryAdmin(ModelAdmin):
 class BookAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
+    make_selected_discoverable.short_description = "Make Selected Book Discoverable"
     def make_selected_undiscoverable(modeladmin, request, queryset):
         queryset.update(discoverable=False)
+    make_selected_undiscoverable.short_description = "Make Selected Book Undiscoverable"
+    def make_selected_recommended(modeladmin, request, queryset):
+        queryset.update(recommended=True)
+    make_selected_recommended.short_description = "Make Selected Book Recommended"
+    def make_selected_unrecommended(modeladmin, request, queryset):
+        queryset.update(recommended=False)
+    make_selected_unrecommended.short_description = "Make Selected Book Unrecommended"
     form = BookForm
     list_display = [
         "title", "subtitle",
@@ -93,10 +101,11 @@ class BookAdmin(ModelAdmin):
         "num_pages",
         "num_views",
         "num_downloads",
+        "recommended",
         "discoverable"
         ]
     readonly_fields = ["identification", "num_views", "num_downloads"]
-    actions = [make_selected_discoverable, make_selected_undiscoverable]
+    actions = [make_selected_discoverable, make_selected_undiscoverable, make_selected_recommended, make_selected_unrecommended]
 
 class BookFeedbackAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
