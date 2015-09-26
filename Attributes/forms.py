@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 from .models import Author, Contributor, Language, Category, Book, BookFeedback
 from re import sub
 
@@ -40,7 +40,8 @@ class BookForm(ModelForm):
         "language",
         "category1", "category2", "category3", "category4", "category5",
         "category6", "category7", "category8", "category9", "category10",
-        "file1",
+        "file1", "file2", "file3",
+        "cover",
         "description",
         "num_pages",
         "discoverable",
@@ -50,6 +51,10 @@ class BookForm(ModelForm):
         return sub("[ \t]+", " ", self.cleaned_data["title"]).strip().title()
     def clean_subtitle(self):
         return sub("[ \t]+", " ", self.cleaned_data["subtitle"]).strip().title()
+    def clean_num_pages(self):
+        if self.cleaned_data["num_pages"] < 0:
+            raise ValidationError("Books can't contain less than zero pages")
+        return self.cleaned_data["num_pages"]
 
 class BookFeedbackForm(ModelForm):
     class Meta:

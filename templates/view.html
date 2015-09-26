@@ -49,6 +49,13 @@
               {{book.subtitle}}
               <hr>
 
+              {% if book.description|length > 0 %}
+                <a href="#"><h3>Description</h3></a>
+                <i>Book Overview</i>
+                <h5>{{book.description}}</h5>
+                <br>
+              {% endif %}
+
               {% for author in book.authors %}
                 <a href="#"><h3>{{author}}</h3></a>
                 <i>Author</i>
@@ -73,13 +80,6 @@
               <a href="#"><h3>{{book.language}}</h3></a>
               <i>Language</i>
               <h4></h4>
-
-              {% if book.description|length > 0 %}
-                <a href="#"><h3>Description</h3></a>
-                <i>Book Overview</i>
-                <h5>{{book.description}}</h5>
-                <br>
-              {% endif %}
 
               {% for category in book.categories %}
                 <a href="#"><h3>{{category}}</h3></a>

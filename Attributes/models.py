@@ -1,4 +1,9 @@
-from django.db.models import Model, CharField, TextField, BooleanField, UUIDField, ForeignKey, IntegerField, FileField, DateTimeField
+from django.db.models import Model
+from django.db.models import CharField, TextField, IntegerField, BooleanField
+from django.db.models import UUIDField
+from django.db.models import ForeignKey
+from django.db.models import FileField, ImageField
+from django.db.models import DateTimeField
 from django.conf import settings
 from uuid import uuid4
 
@@ -41,6 +46,7 @@ class Category(Model):
         return self.name
 
 class Book(Model):
+    """hello world"""
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
@@ -66,8 +72,11 @@ class Book(Model):
     category9 = ForeignKey(Category, related_name="category9", blank=True, null=True)
     category10 = ForeignKey(Category, related_name="category10", blank=True, null=True)
     file1 = FileField(upload_to=settings.DATABASE_DIR)
+    file2 = FileField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
+    file3 = FileField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
+    cover = ImageField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
     description = TextField(max_length=2000, blank=True, null=True)
-    num_pages = IntegerField("number of Pages", default=0)
+    num_pages = IntegerField("number of Pages", help_text="Leave at 0 if you don't want the number of pages to be shown", default=0)
     num_views = IntegerField("Views", default=0)
     num_downloads = IntegerField("Downloads", default=0)
     discoverable = BooleanField(help_text="Make this book discoverable to view and download", default=True)
