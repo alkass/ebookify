@@ -1,8 +1,8 @@
 from django.contrib.admin import site
 from django.contrib.admin import ModelAdmin
-from .models import Author, Contributor, Language, Category, Book, BookFeedback
-from .forms import AuthorForm, ContributorForm, LanguageForm, CategoryForm, BookForm, BookFeedbackForm
 
+from .models import Author
+from .forms import AuthorForm
 class AuthorAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
@@ -24,6 +24,8 @@ class AuthorAdmin(ModelAdmin):
     list_display = ["full_name", "discoverable"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
+from .models import Contributor
+from .forms import ContributorForm
 class ContributorAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
@@ -45,6 +47,8 @@ class ContributorAdmin(ModelAdmin):
     list_display = ["full_name", "discoverable"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
+from .models import Language
+from .forms import LanguageForm
 class LanguageAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
@@ -58,6 +62,8 @@ class LanguageAdmin(ModelAdmin):
     list_display = ["name", "discoverable"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
+from .models import Category
+from .forms import CategoryForm
 class CategoryAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
@@ -79,6 +85,8 @@ class CategoryAdmin(ModelAdmin):
     list_display = ["name", "discoverable"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
+from .models import Book
+from .forms import BookForm
 class BookAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)
@@ -107,6 +115,8 @@ class BookAdmin(ModelAdmin):
     readonly_fields = ["identification", "num_views", "num_downloads"]
     actions = [make_selected_discoverable, make_selected_undiscoverable, make_selected_recommended, make_selected_unrecommended]
 
+from .models import BookFeedback
+from .forms import BookFeedbackForm
 class BookFeedbackAdmin(ModelAdmin):
     def make_selected_discoverable(modeladmin, request, queryset):
         queryset.update(discoverable=True)

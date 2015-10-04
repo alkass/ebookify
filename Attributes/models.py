@@ -46,7 +46,6 @@ class Category(Model):
         return self.name
 
 class Book(Model):
-    """hello world"""
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"

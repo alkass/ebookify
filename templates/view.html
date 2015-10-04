@@ -42,72 +42,77 @@
       <div class="row">
         <div class="col-md-12">
           <div class="jumbotron">
-          {% if error %}
-            <h3>{{error}}</h3>
-          {% else %}
-              <h2 class="managable">{{book.title}}</h2>
-              {{book.subtitle}}
-              <hr>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  {% if error %}
+                    <h3>{{error}}</h3>
+                  {% else %}
+                      <h2>{{book.title}}<small><br>{{book.subtitle}}</small></h2>
+                      <hr>
 
-              {% if book.description|length > 0 %}
-                <a href="#"><h3>Description</h3></a>
-                <i>Book Overview</i>
-                <h5>{{book.description}}</h5>
-                <br>
-              {% endif %}
+                      {% if book.description|length > 0 %}
+                        <a><h3>Description</h3></a>
+                        <i>Book Overview</i>
+                        <h5>{{book.description}}</h5>
+                        <br>
+                      {% endif %}
 
-              {% for author in book.authors %}
-                <a href="#"><h3>{{author}}</h3></a>
-                <i>Author</i>
-                {% for line in author.brief %}
-                  <h5>{{line}}</h5>
-                {% endfor %}
-                <br>
-              {% endfor %}
+                      {% for author in book.authors %}
+                        <a href="#"><h3>{{author}}</h3></a>
+                        <i>Author</i>
+                        {% for line in author.brief %}
+                          <h5>{{line}}</h5>
+                        {% endfor %}
+                        <br>
+                      {% endfor %}
 
-              {% for contributor in book.contributors %}
-                <a href="#"><h3>{{contributor}}</h3></a>
-                <i>Contributor</i>
-                <h4></h4>
-              {% endfor %}
+                      {% for contributor in book.contributors %}
+                        <a href="#"><h3>{{contributor}}</h3></a>
+                        <i>Contributor</i>
+                        <h4></h4>
+                      {% endfor %}
 
-              {% if book.num_pages > 0 %}
-                <a href="#"><h3>{{book.num_pages}}</h3></a>
-                <i>Number of Pages</i>
-                <h4></h4>
-              {% endif %}
+                      {% if book.num_pages > 0 %}
+                        <a><h3>{{book.num_pages}}</h3></a>
+                        <i>Number of Pages</i>
+                        <h4></h4>
+                      {% endif %}
 
-              <a href="#"><h3>{{book.language}}</h3></a>
-              <i>Language</i>
-              <h4></h4>
+                      <a href="#"><h3>{{book.language}}</h3></a>
+                      <i>Language</i>
+                      <h4></h4>
 
-              {% for category in book.categories %}
-                <a href="#"><h3>{{category}}</h3></a>
-                <i>Category</i>
-                {% for line in category.brief %}
-                  <h5>{{line}}</h5>
-                {% endfor %}
-                <br>
-              {% endfor %}
+                      {% for category in book.categories %}
+                        <a href="#"><h3>{{category}}</h3></a>
+                        <i>Category</i>
+                        {% for line in category.brief %}
+                          <h5>{{line}}</h5>
+                        {% endfor %}
+                        <br>
+                      {% endfor %}
 
-              <button class="ui inverted purple button download">Download PDF</button>
-              <button class="ui inverted purple button download">Download EPUB</button>
+                      <button class="ui inverted purple button download">Download PDF</button>
+                      <button class="ui inverted purple button download">Download EPUB</button>
 
-              <h5>
-                This book has been viewed
-                {% if book.num_views == 1 %}
-                  one time
-                {% else %}
-                  {{book.num_views}} times
-                {% endif %}
-                and downloaded
-                {% if book.num_downloads == 1 %}
-                  one time
-                {% else %}
-                  {{book.num_downloads}} times.
-                {% endif %}
-              </h5>
-          {% endif %}
+                      <h5>
+                        This book has been viewed
+                        {% if book.num_views == 1 %}
+                          one time
+                        {% else %}
+                          {{book.num_views}} times
+                        {% endif %}
+                        and downloaded
+                        {% if book.num_downloads == 1 %}
+                          one time
+                        {% else %}
+                          {{book.num_downloads}} times.
+                        {% endif %}
+                      </h5>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -119,11 +124,17 @@
       <div class="row">
         <div class="col-md-12">
           <div class="jumbotron">
-            <h3>{{feedback.feedback_date}}</h3>
-            <br>
-            {% for line in feedback.feedback %}
-              <h4>{{line}}</h4>
-            {% endfor %}
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3>{{feedback.feedback_date}}</h3>
+                  <br>
+                  {% for line in feedback.feedback %}
+                    <h4>{{line}}</h4>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
