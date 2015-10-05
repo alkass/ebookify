@@ -28,6 +28,10 @@ def initials(request, full_name):
     initials_file_path = join(settings.STATICFILES_DIRS[0], "media", "author_initials", "%s.png" % _initials)
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
+def query(request):
+    books = Book.objects.exclude(discoverable=False)
+    return render(request, "query.html", locals())
+
 def view(request, identification):
     book = None
     try:

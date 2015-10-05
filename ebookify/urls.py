@@ -19,6 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'UI.views.homepage', name='home'),
+    url(r'^query/', 'UI.views.query', name='query'),
     url(r'^view/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.view', name='view'),
     url(r'^random/$', 'UI.views.view_random', name='random'),
     url(r'^download/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.download', name='view'),

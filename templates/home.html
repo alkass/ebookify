@@ -15,10 +15,13 @@
         $(".destroyable").click(function(){
           $(this).fadeOut(200, function(){
             $(this).parent().slideUp(500, function(){
-              var html_body = '<h1>What would you like to do?</h1>'
+              var html_body = ''
+              html_body += '<center>'
+              html_body += '<h1>What would you like to do?</h1>'
               html_body += '<button class="ui inverted purple button destroyable">Search the Library</button>'
               html_body += '<button class="ui inverted purple button destroyable">Upload a Book</button>'
               html_body += '<button class="ui inverted purple button destroyable">Request a Book</button>'
+              html_body += '</center>'
               $(this).html(html_body);
                 $(this).slideDown();
             });
