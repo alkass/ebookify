@@ -79,7 +79,7 @@ class Book(Model):
     num_views = IntegerField("Views", default=0)
     num_downloads = IntegerField("Downloads", default=0)
     discoverable = BooleanField(help_text="Make this book discoverable to view and download", default=True)
-    recommended = BooleanField(help_text="Recommend this book to your library visitors", default=True)
+    recommended = BooleanField(help_text="Recommend this book to your library visitors", default=False)
     identification = UUIDField("Book ID", default=uuid4, null=True)
     def __unicode__(self):
         return self.title

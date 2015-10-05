@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ebookify - Your Own Electronic Library</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/semantic.min.js' %}"></script>
+    <script type="text/javascript">
+      $('.ui.dropdown').dropdown();
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Search the Library</h2>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row">
+        <form class="ui form" action="/query/" method="GET">
+          <div class="field">
+            <div class="ui selection dropdown">
+              <input name="author" type="hidden">
+              <i class="dropdown icon"></i>
+              <div class="default text">Author</div>
+              <div class="menu">
+                <div class="item" data-value="all">All Authors</div>
+                {% for author in authors %}
+                  <div class="item" data-value="{{author}}">{{author}}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui selection dropdown">
+              <input name="category" type="hidden">
+              <i class="dropdown icon"></i>
+              <div class="default text">Category</div>
+              <div class="menu">
+                <div class="item" data-value="all">All Categories</div>
+                {% for category in categories %}
+                  <div class="item" data-value="{{category}}">{{category}}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui selection dropdown">
+              <input name="language" type="hidden">
+              <i class="dropdown icon"></i>
+              <div class="default text">Language</div>
+              <div class="menu">
+                <div class="item" data-value="all">All Languages</div>
+                {% for language in languages %}
+                  <div class="item" data-value="{{language}}">{{language}}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <input name="title" placeholder="Search Keywords" type="text">
+          </div>
+
+          <button class="ui inverted purple button destroyable">Search</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

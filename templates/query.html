@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <title>ebookify - Your Own Electronic Library</title>
     {% load staticfiles %}
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/semantic.min.js' %}"></script>
-    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -28,7 +28,17 @@
           {% for book in books %}
             <div class="panel panel-default">
               <div class="panel-body">
-                <h3>{{book.title}}</h3>
+                {% if book.subtitle|length > 0 %}
+                  <h3>{{book.title}}: {{book.subtitle}}</h3>
+                {% else %}
+                  <h3>{{book.title}}</h3>
+                {% endif %}
+                <hr>
+                <h4>{{book.description}}</h4>
+                <br>
+                  <form class="" action="/view/{{book.identification}}" method="get">
+                    <button type="submit" class="ui inverted purple button clickable" value="{{book.identification}}">View This Book</button>
+                  </form>
               </div>
             </div>
           {% endfor %}

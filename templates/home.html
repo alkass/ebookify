@@ -4,26 +4,20 @@
     <meta charset="utf-8">
     <title>ebookify - Your Own Electronic Library</title>
     {% load staticfiles %}
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/semantic.min.js' %}"></script>
-    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $(".destroyable").click(function(){
           $(this).fadeOut(200, function(){
             $(this).parent().slideUp(500, function(){
-              var html_body = ''
-              html_body += '<center>'
-              html_body += '<h1>What would you like to do?</h1>'
-              html_body += '<button class="ui inverted purple button destroyable">Search the Library</button>'
-              html_body += '<button class="ui inverted purple button destroyable">Upload a Book</button>'
-              html_body += '<button class="ui inverted purple button destroyable">Request a Book</button>'
-              html_body += '</center>'
-              $(this).html(html_body);
+              $(this).load("/main_options", function(){
                 $(this).slideDown();
+              });
             });
           });
         });
