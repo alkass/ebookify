@@ -29,12 +29,13 @@
     </script>
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">
             <img alt="ebookify">
           </a>
+          <p class="navbar-text">Your Own Electronic Ebook Library</p>
         </div>
       </div>
     </nav>
@@ -91,6 +92,13 @@
                         {% endfor %}
                         <br>
                       {% endfor %}
+
+                      {% if book.recommended %}
+                        <a><h3>This book is recommended</h3></a>
+                        <i>Recommended books take priority in all search queries</i>
+                        <br>
+                        <br>
+                      {% endif %}
 
                       <button class="ui inverted purple button download">Download PDF</button>
                       <button class="ui inverted purple button download">Download EPUB</button>

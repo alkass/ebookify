@@ -33,7 +33,7 @@ def view(request, identification):
     try:
         book = Book.objects.get(identification=identification)
     except (ValueError, Book.DoesNotExist):
-        error = "You've clicked on an invalid link."
+        error = "Invalid link."
         return render(request, "view.html", locals())
     if book.discoverable:
         book.num_views += 1
