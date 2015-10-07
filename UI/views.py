@@ -105,7 +105,7 @@ def query(request):
     category = args.get("category", "all").title()
     language = args.get("language", "all").title()
     search_tokens = sub("[ \t]+", " ", args.get("title", "")).title().strip().split(" ")
-    books = Book.objects.exclude(discoverable=False)
+    books = Book.objects.exclude(discoverable=False).order_by("-recommended")
     if author.lower() != "all" and len(author) > 0:
         author = Author.objects.get(full_name=author)
         books = books.filter(
