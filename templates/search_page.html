@@ -11,7 +11,13 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
-      $('.ui.dropdown').dropdown();
+      $(".ui.dropdown").dropdown();
+      $(".button.lucky").attr("disabled", "disabled");
+      $(document).ready(function(){
+        $(".field , #search_tokens").change(function(){
+          $(".button.search").text("Search");
+        });
+      });
     </script>
   </head>
   <body>
@@ -68,10 +74,12 @@
           </div>
 
           <div class="field">
-            <input name="title" placeholder="Search Keywords" type="text">
+            <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
           </div>
 
-          <button class="ui inverted purple button destroyable">Search</button>
+          <button class="ui inverted purple button search">View All</button>
+
+          <button class="ui inverted purple button lucky">I'm Feeling Lucky</button>
         </form>
       </div>
     </div>

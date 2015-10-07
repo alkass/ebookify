@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db.models import Q
 from pyqrcode import create as create_qrcode
 from os.path import join
-from Attributes.models import Author, Category, Language, Book, BookFeedback
+from Attributes.models import Author, Contributor, Category, Language, Book, BookFeedback
 from Attributes.forms import CategoryForm
 from random import randint
 from re import sub
@@ -70,10 +70,9 @@ def main_options(request):
     return render(request, "main_options.html", {})
 
 def search_page(request):
-    authors = Author.objects.all().exclude(discoverable=False)
-    categories = Category.objects.all().exclude(discoverable=False)
-    languages = Language.objects.all().exclude(discoverable=False)
-    books = Book.objects.all().exclude(discoverable=False)
+    authors = Author.objects.all().exclude(discoverable=False).order_by("full_name")
+    categories = Category.objects.all().exclude(discoverable=False).order_by("name")
+    languages = Language.objects.all().exclude(discoverable=False).order_by("name")
     return render(request, "search_page.html", locals())
 
 def upload_page(request):
@@ -102,6 +101,7 @@ def initials(request, full_name):
 def query(request):
     args = request.GET
     author = args.get("author", "all").title()
+    contributor = args.get("contributor", "all").title()
     category = args.get("category", "all").title()
     language = args.get("language", "all").title()
     search_tokens = sub("[ \t]+", " ", args.get("title", "")).title().strip().split(" ")
@@ -115,6 +115,13 @@ def query(request):
             | Q(author4=author)
             | Q(author5=author)
             )
+    if contributor.lower() != "all" and len(contributor) > 0:
+        contributor = Contributor.objects.get(full_name=contributor)
+        books = books.filter(
+            Q(contributor1=contributor)
+            | Q(contributor2=contributor)
+            | Q(contributor3=contributor)
+        )
     if category.lower() != "all" and len(category) > 0:
         category = Category.objects.get(name=category)
         books = books.filter(
@@ -134,6 +141,8 @@ def query(request):
         books = books.filter(language=language)
     for token in search_tokens:
         books = books.filter(Q(title__contains=token) | Q(subtitle__contains=token))
+    if len(books) == 1:
+        return render(request, "redirect.html", {"to":"/view/%s" % str(books[0].identification)})
     return render(request, "query.html", locals())
 
 def view(request, identification):
