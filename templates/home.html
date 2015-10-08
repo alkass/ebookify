@@ -52,33 +52,31 @@
                     <a href="http://github.com/alkass/ebookify">GitHub</a>
                   </p>
 
-                  {% if books|length == 0 %}
+                  {% if num_books == 0 %}
                     <p>We're currently out of books. Please check back later.</p>
                     <p>Sorry for the inconvenience.</p>
                   {% else %}
                     <p>
                       We currently maintain a database of
-                      {% if authors|length == 1 %}
-                        one author,
+                      {% if num_ == 1 %}
+                        1 author,
                       {% else %}
-                        {{authors|length}} authors,
+                        {{num_authors}} authors,
                       {% endif %}
-                      {% if categories|length == 1 %}
-                        one category,
+                      {% if num_categories == 1 %}
+                        1 category,
                       {% else %}
-                        {{categories|length}} categories,
+                        {{num_categories}} categories,
                       {% endif %}
                       and
                       {% if books|length == 1 %}
-                        one book.
+                        1 book.
                       {% else %}
-                        {{books|length}} books.
+                        {{num_books}} books.
                       {% endif %}
                     </p>
+                    <button class="ui inverted purple button destroyable">Proceed to the library</button>
                   {% endif %}
-
-                  <button class="ui inverted purple button destroyable">Proceed to the library</button>
-
                 </div>
               </div>
             </div>

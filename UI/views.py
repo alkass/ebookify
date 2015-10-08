@@ -61,9 +61,9 @@ def getCategories(book):
 """
 
 def homepage(request):
-    authors = Author.objects.all().exclude(discoverable=False)
-    categories = Category.objects.all().exclude(discoverable=False)
-    books = Book.objects.all().exclude(discoverable=False)
+    num_authors = len(Author.objects.all().exclude(discoverable=False))
+    num_categories = len(Category.objects.all().exclude(discoverable=False))
+    num_books = len(Book.objects.all().exclude(discoverable=False))
     return render(request, "home.html", locals())
 
 def main_options(request):
@@ -141,8 +141,6 @@ def query(request):
         books = books.filter(language=language)
     for token in search_tokens:
         books = books.filter(Q(title__contains=token) | Q(subtitle__contains=token))
-    if len(books) == 1:
-        return render(request, "redirect.html", {"to":"/view/%s" % str(books[0].identification)})
     return render(request, "query.html", locals())
 
 def view(request, identification):

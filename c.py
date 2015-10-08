@@ -4,7 +4,6 @@ from os.path import join
 from json import loads
 from Attributes.models import Author, Contributor, Language, Category, Book
 
-
 DIR = "/opt/ebookify/books"
 
 BOOKS = listdir(DIR)

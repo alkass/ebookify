@@ -30,7 +30,7 @@
         <div class="col-md-12">
           <ol class="breadcrumb">
             {% if books|length == 1 %}
-              <li><a>One book found</a></li>
+              <li><a>1 book found</a></li>
             {% else %}
               <li><a>{{books|length}} books found</a></li>
             {% endif %}
@@ -43,7 +43,7 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 {% if book.subtitle|length > 0 %}
-                  <h3>{{book.title}}: {{book.subtitle}}</h3>
+                  <h3>{{book.title}}: {{book.subtitle}}<br><small><a href="/query/?author={{book.author1}}">{{book.author1}}</a></small></h3>
                 {% else %}
                   <h3>{{book.title}}</h3>
                 {% endif %}

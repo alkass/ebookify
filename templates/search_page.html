@@ -12,10 +12,9 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(".ui.dropdown").dropdown();
-      $(".button.lucky").attr("disabled", "disabled");
       $(document).ready(function(){
         $(".field , #search_tokens").change(function(){
-          $(".button.search").text("Search");
+          $(".button.search").val("Search");
         });
       });
     </script>
@@ -77,9 +76,9 @@
             <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
           </div>
 
-          <button class="ui inverted purple button search">View All</button>
+          <input type="submit" class="ui inverted purple button search" value="View All"></input>
 
-          <button class="ui inverted purple button lucky">I'm Feeling Lucky</button>
+          <a class="ui inverted purple button lucky" href="random">I'm Feeling Lucky</a>
         </form>
       </div>
     </div>
