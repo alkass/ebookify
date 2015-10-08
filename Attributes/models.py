@@ -74,7 +74,7 @@ class Book(Model):
     file2 = FileField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
     file3 = FileField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
     cover = ImageField(upload_to=settings.DATABASE_DIR, blank=True, null=True)
-    description = TextField(max_length=2000, blank=True, null=True)
+    description = TextField(max_length=5000, blank=True, null=True)
     num_pages = IntegerField("number of Pages", help_text="Leave at 0 if you don't want the number of pages to be shown", default=0)
     num_views = IntegerField("Views", default=0)
     num_downloads = IntegerField("Downloads", default=0)
