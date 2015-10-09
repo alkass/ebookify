@@ -12,19 +12,15 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(".ui.dropdown").dropdown();
-      $(document).ready(function(){
-        $(".field , #search_tokens").change(function(){
-          $(".button.search").val("Search");
-        });
-      });
     </script>
   </head>
   <body>
     <div class="container">
-      <center>
       <div class="row">
         <div class="col-md-12">
-          <h2>Search the Library</h2>
+          <center>
+            <h2>Search the Library</h2>
+          </center>
           <hr>
         </div>
       </div>
@@ -73,13 +69,17 @@
                 <div class="field">
                   <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
                 </div>
+                <center>
                 <div class="field">
-                  <input type="submit" class="ui inverted purple button search" value="View All"></input>
+                  <div class="ui buttons">
+                    <button class="ui negative button search">Search</button>
+                    <div class="or"></div>
+                    <a class="ui blue button">I'm feeling lucky</a>
+                  </div>
                 </div>
-              </form>
+                </center>
             </div>
           </div>
-        </center>
         </div>
       </body>
       </html>

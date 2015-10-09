@@ -12,6 +12,10 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+        $(".upload").attr("disabled", "disabled");
+        $(".request").attr("disabled", "disabled");
+      });
+      $(document).ready(function(){
         $(".search").click(function(){
           $(this).parent().parent().slideUp(500, function(){
             $(this).load("/search_page", function(){
@@ -41,11 +45,27 @@
     </script>
   </head>
   <body>
-    <center>
-    <h1>What would you like to do?</h1>
-    <button class="ui inverted purple button search">Search the Library</button>
-    <button class="ui inverted purple button upload">Upload a Book</button>
-    <button class="ui inverted purple button request">Request a Book</button>
-    </center>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>What would you like to do?</h1>
+          <hr>
+        </div>
+        <hr>
+        <div class="col-md-12">
+          <button class="fluid ui red button search">Search the Library</button>
+          <br>
+        </div>
+        <div class="col-md-12">
+          <button class="fluid ui red button upload">Upload a Book</button>
+          <br>
+        </div>
+        <br>
+        <div class="col-md-12">
+          <button class="fluid ui red button request">Request a Book</button>
+          <br>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

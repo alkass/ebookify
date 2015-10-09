@@ -12,10 +12,16 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
   </head>
   <body>
-    <h2>Upload a Book</h2>
-    <h3>This feature is currently disabled. Sorry for the inconvenience.</h3>
-    <form action="/upload_page/" method="POST">
-      {% csrf_token %}
-    </form>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Upload a Book</h2>
+          <h3>This feature is currently disabled. Sorry for the inconvenience.</h3>
+          <form action="/upload_page/" method="POST">
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
