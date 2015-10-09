@@ -70,7 +70,7 @@
                         {% for line in author.brief %}
                           <h5>{{line}}</h5>
                         {% endfor %}
-                        <br>
+                        <h4></h4>
                       {% endfor %}
 
                       {% for contributor in book.contributors %}
@@ -85,9 +85,11 @@
                         <h4></h4>
                       {% endif %}
 
+                      {% if book.language %}
                       <a href="/query/?language={{book.language}}"><h3>{{book.language}}</h3></a>
                       <i>Language</i>
                       <h4></h4>
+                      {% endif %}
 
                       {% for category in book.categories %}
                         <a href="/query/?category={{category}}"><h3>{{category}}</h3></a>
@@ -95,7 +97,7 @@
                         {% for line in category.brief %}
                           <h5>{{line}}</h5>
                         {% endfor %}
-                        <br>
+                        <h4></h4>
                       {% endfor %}
 
                       {% if book.recommended %}

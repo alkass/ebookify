@@ -42,17 +42,63 @@
           {% for book in books %}
             <div class="panel panel-default">
               <div class="panel-body">
-                {% if book.subtitle|length > 0 %}
-                  <h3>{{book.title}}: {{book.subtitle}}<br><small><a href="/query/?author={{book.author1}}">{{book.author1}}</a></small></h3>
-                {% else %}
-                  <h3>{{book.title}}</h3>
-                {% endif %}
-                <hr>
-                <h4>{{book.description}}</h4>
-                <br>
+                <div class="col-md-10">
+                  {% if book.subtitle|length > 0 %}
+                    <h3>{{book.title}}: {{book.subtitle}}</h3>
+                  {% else %}
+                    <h3>{{book.title}}</h3>
+                  {% endif %}
+                </div>
+                <div class="col-md-2">
                   <form class="" action="/view/{{book.identification}}" method="get">
                     <button type="submit" class="ui inverted purple button clickable" value="{{book.identification}}">View This Book</button>
                   </form>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                  {% if book.authors|length > 0 %}
+                    <h5>
+                      {% if book.authors|length == 1 %}
+                        Author:
+                      {% else %}
+                        Authors:
+                      {% endif %}
+                      {% for author in book.authors %}
+                        {% if forloop.last %}
+                          <a href="/query/?author={{author}}">{{author}}</a>
+                        {% else %}
+                          <a href="/query/?author={{author}}">{{author}}</a>,
+                        {% endif %}
+                      {% endfor %}
+                    </h5>
+                  {% endif %}
+
+                  {% if book.categories|length > 0 %}
+                    <h5>
+                      {% if book.categories|length == 1 %}
+                        Category:
+                      {% else %}
+                        Categories:
+                      {% endif %}
+                      {% for category in book.categories %}
+                        {% if forloop.last %}
+                          <a href="/query/?category={{category}}">{{category}}</a>
+                        {% else %}
+                          <a href="/query/?category={{category}}">{{category}}</a>,
+                        {% endif %}
+                      {% endfor %}
+                    </h5>
+                  {% endif %}
+
+                  {% if book.language %}
+                    <h5>Language: <a href="/query/?language={{book.language}}">{{book.language}}</a></h5>
+                  {% endif %}
+
+                  {% if book.description %}
+                    <h4>{{book.description}}</h4>
+                  {% endif %}
+                </div>
+
               </div>
             </div>
           {% endfor %}

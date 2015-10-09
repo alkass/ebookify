@@ -1,7 +1,7 @@
 from django.forms import ModelForm, ValidationError
-from .models import Author, Contributor, Language, Category, Book, BookFeedback
 from re import sub
 
+from .models import Author
 class AuthorForm(ModelForm):
     class Meta:
         model = Author
@@ -9,6 +9,7 @@ class AuthorForm(ModelForm):
     def clean_full_name(self):
         return sub("[ \t]+", " ", self.cleaned_data["full_name"]).strip().title()
 
+from .models import Contributor
 class ContributorForm(ModelForm):
     class Meta:
         model = Contributor
@@ -16,6 +17,7 @@ class ContributorForm(ModelForm):
     def clean_full_name(self):
         return sub("[ \t]+", " ", self.cleaned_data["full_name"]).strip().title()
 
+from .models import Language
 class LanguageForm(ModelForm):
     class Meta:
         model = Language
@@ -23,6 +25,7 @@ class LanguageForm(ModelForm):
     def clean_name(self):
         return sub("[ \t]+", " ", self.cleaned_data["name"]).strip().title()
 
+from .models import Category
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
@@ -30,6 +33,7 @@ class CategoryForm(ModelForm):
     def clean_name(self):
         return sub("[ \t]+", " ", self.cleaned_data["name"]).strip().title()
 
+from .models import Book
 class BookForm(ModelForm):
     class Meta:
         model = Book
@@ -56,6 +60,7 @@ class BookForm(ModelForm):
             raise ValidationError("Books can't contain less than zero pages")
         return self.cleaned_data["num_pages"]
 
+from .models import BookFeedback
 class BookFeedbackForm(ModelForm):
     class Meta:
         model = BookFeedback

@@ -21,66 +21,65 @@
   </head>
   <body>
     <div class="container">
+      <center>
       <div class="row">
         <div class="col-md-12">
           <h2>Search the Library</h2>
           <hr>
         </div>
       </div>
-
       <div class="row">
-        <form class="ui form" action="/query/" method="GET">
-          <div class="field">
-            <div class="ui selection dropdown">
-              <input name="author" type="hidden">
-              <i class="dropdown icon"></i>
-              <div class="default text">Author</div>
-              <div class="menu">
-                <div class="item" data-value="all">All Authors</div>
-                {% for author in authors %}
-                  <div class="item" data-value="{{author}}">{{author}}</div>
-                {% endfor %}
+        <div class="col-md-12">
+          <form class="ui form" action="/query/" method="GET">
+            <div class="field">
+              <div class="ui selection dropdown">
+                <input name="author" type="hidden">
+                <i class="dropdown icon"></i>
+                <div class="default text">Author</div>
+                <div class="menu">
+                  <div class="item" data-value="all">All Authors</div>
+                    {% for author in authors %}
+                      <div class="item" data-value="{{author}}">{{author}}</div>
+                    {% endfor %}
+                  </div>
+                </div>
               </div>
+              <div class="field">
+                <div class="ui selection dropdown">
+                  <input name="category" type="hidden">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Category</div>
+                  <div class="menu">
+                    <div class="item" data-value="all">All Categories</div>
+                    {% for category in categories %}
+                      <div class="item" data-value="{{category}}">{{category}}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui selection dropdown">
+                  <input name="language" type="hidden">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Language</div>
+                    <div class="menu">
+                      <div class="item" data-value="all">All Languages</div>
+                      {% for language in languages %}
+                        <div class="item" data-value="{{language}}">{{language}}</div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
+                </div>
+                <div class="field">
+                  <input type="submit" class="ui inverted purple button search" value="View All"></input>
+                </div>
+              </form>
             </div>
           </div>
-
-          <div class="field">
-            <div class="ui selection dropdown">
-              <input name="category" type="hidden">
-              <i class="dropdown icon"></i>
-              <div class="default text">Category</div>
-              <div class="menu">
-                <div class="item" data-value="all">All Categories</div>
-                {% for category in categories %}
-                  <div class="item" data-value="{{category}}">{{category}}</div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="ui selection dropdown">
-              <input name="language" type="hidden">
-              <i class="dropdown icon"></i>
-              <div class="default text">Language</div>
-              <div class="menu">
-                <div class="item" data-value="all">All Languages</div>
-                {% for language in languages %}
-                  <div class="item" data-value="{{language}}">{{language}}</div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
-          </div>
-
-          <input type="submit" class="ui inverted purple button search" value="View All"></input>
-
-          <a class="ui inverted purple button lucky" href="random">I'm Feeling Lucky</a>
-        </form>
-      </div>
-    </div>
-  </body>
-</html>
+        </center>
+        </div>
+      </body>
+      </html>

@@ -25,8 +25,6 @@ urlpatterns = [
     url(r'^request_page/$', 'UI.views.request_page', name='request_page'),
     url(r'^query/', 'UI.views.query', name='query'),
     url(r'^view/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.view', name='view'),
-    url(r'^random/$', 'UI.views.view_random', name='random'),
     url(r'^download/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.download', name='view'),
-    url(r'^qr/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.qr', name='qr'),
     url(r'^initials/(?P<full_name>(.*))/$', 'UI.views.initials', name='initials'),
 ]

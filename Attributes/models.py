@@ -93,4 +93,4 @@ class BookFeedback(Model):
     feedback_date = DateTimeField(auto_now=False, auto_now_add=True)
     discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=True)
     def __unicode__(self):
-        return str(self.book)
+        return str(self.book.identification)

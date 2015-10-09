@@ -13,7 +13,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $(".search").click(function(){
-          $(this).parent().slideUp(500, function(){
+          $(this).parent().parent().slideUp(500, function(){
             $(this).load("/search_page", function(){
               $(this).slideDown();
             });
@@ -22,7 +22,7 @@
       });
       $(document).ready(function(){
         $(".upload").click(function(){
-          $(this).parent().slideUp(500, function(){
+          $(this).parent().parent().slideUp(500, function(){
             $(this).load("/upload_page", function(){
               $(this).slideDown();
             });
@@ -31,7 +31,7 @@
       });
       $(document).ready(function(){
         $(".request").click(function(){
-          $(this).parent().slideUp(500, function(){
+          $(this).parent().parent().slideUp(500, function(){
             $(this).load("/request_page", function(){
               $(this).slideDown();
             });
