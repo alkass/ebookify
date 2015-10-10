@@ -20,6 +20,7 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+        $(".button.download").attr("disabled", "disabled");
         $(".button.download").click(function(){
           var new_text = "Downloading..."
           if ($(this).text() != new_text)
