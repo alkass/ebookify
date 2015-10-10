@@ -12,6 +12,11 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(".ui.dropdown").dropdown();
+      $(document).ready(function(){
+        $(".ui.dropdown , .search_tokens").change(function(){
+          $(".search").text("Search");
+        });
+      });
     </script>
   </head>
   <body>
@@ -67,12 +72,12 @@
                   </div>
                 </div>
                 <div class="field">
-                  <input name="title" id="search_tokens" placeholder="Search Keywords" type="text">
+                  <input name="title" class="search_tokens" placeholder="Search Keywords" type="text">
                 </div>
                 <center>
                 <div class="two fields">
                   <div class="fluid ui buttons">
-                    <button class="ui negative button search">Search</button>
+                    <button class="ui negative button search">View All</button>
                     <div class="or"></div>
                     <a class="ui blue button" href="/lucky">I'm feeling lucky</a>
                   </div>
