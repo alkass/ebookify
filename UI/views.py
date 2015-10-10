@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 from django.db.models import Q
@@ -172,8 +172,7 @@ def lucky(request):
             random_book = recommended_books[randint(0, len(recommended_books)-1)]
         else:
             random_book = books[randint(0, len(books)-1)]
-    return render(request, "redirect.html", {"to":"/view/"+str(random_book.identification)})
-
+    return redirect("/view/%s" % str(random_book.identification))
 
 def download(request, identification):
     return HttpResponse("this feature has not been implemented yet")
