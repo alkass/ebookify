@@ -57,7 +57,10 @@
                   </form>
                 </div>
                 <hr>
-                <div class="col-md-12">
+                <div class="col-md-2">
+                  <img class="ui small image" src="{% static 'media/images/no_cover.jpg' %}" width=100%>
+                </div>
+                <div class="col-md-10">
                   {% if book.authors|length > 0 %}
                     <h5>
                       {% if book.authors|length == 1 %}
@@ -96,9 +99,6 @@
                     <h5>Language: <a href="/query/?language={{book.language}}">{{book.language}}</a></h5>
                   {% endif %}
 
-                  {% if book.description %}
-                    <h4>{{book.description}}</h4>
-                  {% endif %}
                 </div>
 
               </div>
