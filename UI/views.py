@@ -161,5 +161,19 @@ def view(request, identification):
         error = "This book is inaccessable. Sorry for the inconvenience."
         return render(request, "view.html", locals())
 
+def lucky(request):
+    books = Book.objects.exclude(discoverable=False)
+    if len(books) == 0:
+        error = "we're currently out of books."
+        return render(request, "view.html", {"error":error})
+    else:
+        recommended_books = books.filter(recommended=True)
+        if len(recommended_books) > 0:
+            random_book = recommended_books[randint(0, len(recommended_books)-1)]
+        else:
+            random_book = books[randint(0, len(books)-1)]
+    return render(request, "redirect.html", {"to":"/view/"+str(random_book.identification)})
+
+
 def download(request, identification):
     return HttpResponse("this feature has not been implemented yet")
