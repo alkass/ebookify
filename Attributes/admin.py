@@ -22,6 +22,7 @@ class AuthorAdmin(ModelAdmin):
             Book.objects.filter(author5=author).update(discoverable=False)
     form = AuthorForm
     list_display = ["full_name", "discoverable"]
+    search_fields = ["full_name"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
 from .models import Contributor
@@ -45,6 +46,7 @@ class ContributorAdmin(ModelAdmin):
             Book.objects.filter(contributor5=contributor).update(discoverable=False)
     form = ContributorForm
     list_display = ["full_name", "discoverable"]
+    search_fields = ["full_name"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
 from .models import Language
@@ -60,6 +62,7 @@ class LanguageAdmin(ModelAdmin):
             Book.objects.filter(language=language).update(discoverable=False)
     form = LanguageForm
     list_display = ["name", "discoverable"]
+    search_fields = ["name"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
 from .models import Category
@@ -82,6 +85,7 @@ class CategoryAdmin(ModelAdmin):
             Book.objects.filter(category4=category).update(discoverable=False)
             Book.objects.filter(category5=category).update(discoverable=False)
     form = CategoryForm
+    search_fields = ["name", "brief"]
     list_display = ["name", "discoverable", "brief"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
@@ -106,18 +110,19 @@ class BookAdmin(ModelAdmin):
         "author1", "author2",
         "language",
         "category1", "category2",
-        "num_pages",
         "num_views",
         "num_downloads",
         "recommended",
         "discoverable"
         ]
+    search_fields = ["title", "subtitle",]
     readonly_fields = ["identification", "num_views", "num_downloads"]
     actions = [
         make_selected_discoverable,
         make_selected_undiscoverable,
         make_selected_recommended,
-        make_selected_unrecommended]
+        make_selected_unrecommended
+        ]
 
 from .models import BookFeedback
 from .forms import BookFeedbackForm
@@ -128,6 +133,7 @@ class BookFeedbackAdmin(ModelAdmin):
         queryset.update(discoverable=False)
     form = BookFeedbackForm
     list_display = ["book", "feedback_date", "feedback", "discoverable"]
+    search_fields = ["book", "feedback_date", "feedback"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
 site.register(Author, AuthorAdmin)
