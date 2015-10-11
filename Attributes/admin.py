@@ -82,7 +82,7 @@ class CategoryAdmin(ModelAdmin):
             Book.objects.filter(category4=category).update(discoverable=False)
             Book.objects.filter(category5=category).update(discoverable=False)
     form = CategoryForm
-    list_display = ["name", "discoverable"]
+    list_display = ["name", "discoverable", "brief"]
     actions = [make_selected_discoverable, make_selected_undiscoverable]
 
 from .models import Book
