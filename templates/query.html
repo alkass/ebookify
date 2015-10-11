@@ -59,9 +59,9 @@
                 <hr>
                 <div class="col-md-2">
                   {% if book.cover %}
-                    <img src="/cover/{{book.identification}}" width=100% />
+                    <img src="/cover/{{book.identification}}" class="ui rounded image" width=100% />
                   {% else %}
-                    <img class="ui small image" src="{% static 'media/images/no_cover.jpg' %}" width=100%>
+                    <img  src="{% static 'media/images/no_cover.jpg' %}" width=100%>
                   {% endif %}
                 </div>
                 <div class="col-md-10">
