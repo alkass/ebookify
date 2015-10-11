@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 from django.db.models import Q
+from django.conf import settings
 from os.path import join
 from Attributes.models import Author, Contributor, Category, Language, Book, BookFeedback
 from Attributes.forms import CategoryForm
@@ -92,8 +93,8 @@ def initials(request, full_name):
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
 def cover(request, identification):
-    cover_path = Book.objects.exclude(discoverable=False).get(identification=identification).cover
-    return HttpResponse(file(str(cover_path), "rb").read(), {"Content-type":"img/png"})
+    cover_img_name = str(Book.objects.exclude(discoverable=False).get(identification=identification).cover).split("/")[-1]
+    return HttpResponse(file(join(settings.DATABASE_COVER_DIR, cover_img_name), "rb").read(), {"Content-type":"img/png"})
 
 def query(request):
     args = request.GET
