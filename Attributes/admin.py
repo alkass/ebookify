@@ -113,7 +113,11 @@ class BookAdmin(ModelAdmin):
         "discoverable"
         ]
     readonly_fields = ["identification", "num_views", "num_downloads"]
-    actions = [make_selected_discoverable, make_selected_undiscoverable, make_selected_recommended, make_selected_unrecommended]
+    actions = [
+        make_selected_discoverable,
+        make_selected_undiscoverable,
+        make_selected_recommended,
+        make_selected_unrecommended]
 
 from .models import BookFeedback
 from .forms import BookFeedbackForm

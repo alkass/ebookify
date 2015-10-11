@@ -91,6 +91,10 @@ def initials(request, full_name):
     initials_file_path = join(settings.STATICFILES_DIRS[0], "media", "author_initials", "%s.png" % _initials)
     return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
 
+def cover(request, identification):
+    cover_path = Book.objects.exclude(discoverable=False).get(identification=identification).cover
+    return HttpResponse(file(str(cover_path), "rb").read(), {"Content-type":"img/png"})
+
 def query(request):
     args = request.GET
     author = args.get("author", "all").title()

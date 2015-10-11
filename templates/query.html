@@ -58,7 +58,11 @@
                 </div>
                 <hr>
                 <div class="col-md-2">
-                  <img class="ui small image" src="{% static 'media/images/no_cover.jpg' %}" width=100%>
+                  {% if book.cover %}
+                    <img src="/cover/{{book.identification}}" width=100% />
+                  {% else %}
+                    <img class="ui small image" src="{% static 'media/images/no_cover.jpg' %}" width=100%>
+                  {% endif %}
                 </div>
                 <div class="col-md-10">
                   {% if book.authors|length > 0 %}

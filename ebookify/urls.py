@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^view/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.view', name='view'),
     url(r'^download/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.download', name='view'),
     url(r'^initials/(?P<full_name>(.*))/$', 'UI.views.initials', name='initials'),
+    url(r'^cover/(?P<identification>[A-Za-z0-9_\-]+)/$', 'UI.views.cover', name='cover'),
 ]
