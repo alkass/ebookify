@@ -4,6 +4,7 @@ from django.db.models import UUIDField
 from django.db.models import ForeignKey
 from django.db.models import FileField, ImageField
 from django.db.models import DateTimeField
+from django.db.models import ManyToManyField
 from django.conf import settings
 from uuid import uuid4
 from os.path import join
@@ -93,5 +94,6 @@ class BookFeedback(Model):
     feedback = TextField(max_length=1000, blank=False, null=True)
     feedback_date = DateTimeField(auto_now=False, auto_now_add=True)
     discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=True)
+
     def __unicode__(self):
         return str(self.book.identification)
