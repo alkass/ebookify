@@ -180,4 +180,12 @@ def lucky(request):
     return redirect("/view/%s" % str(random_book.identification))
 
 def download(request, identification):
+    book = None
+    try:
+        book = Book.objects.exclude(discoverable=False).get(identification=identification)
+        
+    except Book.DoesNotExist:
+        return HttpResponse("'%s' is an invalid book id" % identification)
+    except ValueError:
+        return HttpResponse("Error")
     return HttpResponse("this feature has not been implemented yet")
