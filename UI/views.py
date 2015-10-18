@@ -146,24 +146,23 @@ def query(request):
     return render(request, "query.html", locals())
 
 def view(request, identification):
-    book = None
     try:
         book = Book.objects.get(identification=identification)
+        if book.discoverable:
+            book.num_views += 1
+            book.save()
+            feedbacks = BookFeedback.objects.filter(book=book).exclude(discoverable=False)
+            for i in range(len(feedbacks)):
+                feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
+            book.authors = getAuthors(book)
+            book.contributors = getContributors(book)
+            book.categories = getCategories(book)
+            return render(request, "view.html", locals())
+        else:
+            error = "This book is inaccessable. Sorry for the inconvenience."
+            return render(request, "view.html", locals())
     except (ValueError, Book.DoesNotExist):
         error = "Invalid link."
-        return render(request, "view.html", locals())
-    if book.discoverable:
-        book.num_views += 1
-        book.save()
-        feedbacks = BookFeedback.objects.filter(book=book).exclude(discoverable=False)
-        for i in range(len(feedbacks)):
-            feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
-        book.authors = getAuthors(book)
-        book.contributors = getContributors(book)
-        book.categories = getCategories(book)
-        return render(request, "view.html", locals())
-    else:
-        error = "This book is inaccessable. Sorry for the inconvenience."
         return render(request, "view.html", locals())
 
 def lucky(request):
@@ -180,12 +179,17 @@ def lucky(request):
     return redirect("/view/%s" % str(random_book.identification))
 
 def download(request, identification):
-    book = None
     try:
         book = Book.objects.exclude(discoverable=False).get(identification=identification)
-        
+        response = HttpResponse()
+        file_name = str(book.file1).split("/")[-1]
+        path_to_file = join(settings.DATABASE_BOOK_DIR, file_name)
+        print path_to_file
+        response["Content-type"] = "application/pdf"
+        response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+        response.write(open(path_to_file, "rb").read())
+        return response
     except Book.DoesNotExist:
         return HttpResponse("'%s' is an invalid book id" % identification)
     except ValueError:
         return HttpResponse("Error")
-    return HttpResponse("this feature has not been implemented yet")
