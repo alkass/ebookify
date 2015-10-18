@@ -20,7 +20,6 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $(".button.download").attr("disabled", "disabled");
         $(".button.download").click(function(){
           var new_text = "Downloading..."
           if ($(this).text() != new_text)
@@ -109,7 +108,7 @@
                         <br>
                       {% endif %}
 
-                      <button class="fluid ui red button download">Download</button>
+                      <a class="fluid ui red button download" href="/download/{{book.identification}}">Download</a>
 
                       <h5>
                         This book has been viewed

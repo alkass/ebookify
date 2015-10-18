@@ -181,12 +181,12 @@ def lucky(request):
 def download(request, identification):
     try:
         book = Book.objects.exclude(discoverable=False).get(identification=identification)
+        book.num_downloads += 1
+        book.save()
         response = HttpResponse()
-        file_name = str(book.file1).split("/")[-1]
-        path_to_file = join(settings.DATABASE_BOOK_DIR, file_name)
-        print path_to_file
+        path_to_file = join(settings.DATABASE_BOOK_DIR, str(book.file1).split("/")[-1])
         response["Content-type"] = "application/pdf"
-        response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+        response["Content-Disposition"] = "attachment; filename=%s" % book.title.replace(" ", "_")
         response.write(open(path_to_file, "rb").read())
         return response
     except Book.DoesNotExist:
