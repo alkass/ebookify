@@ -107,13 +107,14 @@ class BookAdmin(ModelAdmin):
     form = BookForm
     list_display = [
         "title", "subtitle",
-        "author1", "author2",
         "language",
-        "category1", "category2",
         "num_views",
         "num_downloads",
         "recommended",
-        "discoverable"
+        "discoverable",
+        "pdf",
+        "epub",
+        "mobi",
         ]
     search_fields = ["title", "subtitle",]
     readonly_fields = ["identification", "num_views", "num_downloads"]

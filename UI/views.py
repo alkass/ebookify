@@ -9,57 +9,6 @@ from Attributes.forms import CategoryForm
 from random import randint
 from re import sub
 
-"""
-    B E G I N N I N G   -  O F  -  S T R I P P E R  -  F U N C T I O N S
-"""
-
-def getAuthors(book):
-    authors = [
-        book.author1,
-        book.author2,
-        book.author3,
-        book.author4,
-        book.author5
-        ]
-    while authors.count(None) > 0:
-        authors.remove(None)
-    for i in range(len(authors)):
-        authors[i].brief = authors[i].brief.split("\n")
-    return set(authors)
-
-def getContributors(book):
-    contributors = [
-        book.contributor1,
-        book.contributor2,
-        book.contributor3
-    ]
-    while contributors.count(None) > 0:
-        contributors.remove(None)
-    return set(contributors)
-
-def getCategories(book):
-    categories = [
-        book.category1,
-        book.category2,
-        book.category3,
-        book.category4,
-        book.category5,
-        book.category6,
-        book.category7,
-        book.category8,
-        book.category9,
-        book.category10
-        ]
-    while categories.count(None) > 0:
-        categories.remove(None)
-    for i in range(len(categories)):
-        categories[i].brief = categories[i].brief.split("\n")
-    return set(categories)
-
-"""
-    E N D   -  O F  -  S T R I P P E R  -  F U N C T I O N S
-"""
-
 def homepage(request):
     num_authors = len(Author.objects.all().exclude(discoverable=False))
     num_categories = len(Category.objects.all().exclude(discoverable=False))
@@ -81,6 +30,9 @@ def upload_page(request):
 
 def request_page(request):
     return render(request, "request_page.html", {})
+
+def check_request_status_page(request):
+    return render(request, "check_request_status_page.html", {})
 
 def initials(request, full_name):
     tokenized_name = full_name.title().strip().split(" ")
@@ -106,44 +58,19 @@ def query(request):
     books = Book.objects.exclude(discoverable=False).order_by("-recommended")
     if author.lower() != "all" and len(author) > 0:
         author = Author.objects.get(full_name=author)
-        books = books.filter(
-            Q(author1=author)
-            | Q(author2=author)
-            | Q(author3=author)
-            | Q(author4=author)
-            | Q(author5=author)
-            )
+        books = books.filter(authors__full_name=author)
     if contributor.lower() != "all" and len(contributor) > 0:
         contributor = Contributor.objects.get(full_name=contributor)
-        books = books.filter(
-            Q(contributor1=contributor)
-            | Q(contributor2=contributor)
-            | Q(contributor3=contributor)
-        )
+        books = books.filter(contributors__full_name=contributor)
     if category.lower() != "all" and len(category) > 0:
         category = Category.objects.get(name=category)
-        books = books.filter(
-            Q(category1=category)
-            | Q(category2=category)
-            | Q(category3=category)
-            | Q(category4=category)
-            | Q(category5=category)
-            | Q(category6=category)
-            | Q(category7=category)
-            | Q(category8=category)
-            | Q(category9=category)
-            | Q(category10=category)
-        )
+        books = books.filter(categories__name=category)
     if language.lower() != "all" and len(language) > 0:
         language = Language.objects.get(name=language)
         books = books.filter(language=language)
     for token in search_tokens:
         books = books.filter(Q(title__contains=token) | Q(subtitle__contains=token))
-    for i in range(len(books)):
-        books[i].authors = getAuthors(books[i])
-        books[i].contributors = getContributors(books[i])
-        books[i].categories = getCategories(books[i])
-    return render(request, "query.html", locals())
+    return render(request, "query.html", {"books":books})
 
 def view(request, identification):
     try:
@@ -154,9 +81,6 @@ def view(request, identification):
             feedbacks = BookFeedback.objects.filter(book=book).exclude(discoverable=False)
             for i in range(len(feedbacks)):
                 feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
-            book.authors = getAuthors(book)
-            book.contributors = getContributors(book)
-            book.categories = getCategories(book)
             return render(request, "view.html", locals())
         else:
             error = "This book is inaccessable. Sorry for the inconvenience."
@@ -178,15 +102,27 @@ def lucky(request):
             random_book = books[randint(0, len(books)-1)]
     return redirect("/view/%s" % str(random_book.identification))
 
-def download(request, identification):
+def download(request):
     try:
+        identification = request.GET.get("identification")
+        extention = request.GET.get("extention").lower()
         book = Book.objects.exclude(discoverable=False).get(identification=identification)
         book.num_downloads += 1
         book.save()
         response = HttpResponse()
-        path_to_file = join(settings.DATABASE_BOOK_DIR, str(book.file1).split("/")[-1])
-        response["Content-type"] = "application/pdf"
-        response["Content-Disposition"] = "attachment; filename=%s" % book.title.replace(" ", "_")
+        path_to_file = None
+        if extention == "pdf":
+            path_to_file = join(settings.DATABASE_BOOK_DIR, str(book.pdf_file).split("/")[-1])
+            response["Content-type"] = "application/pdf"
+            response["Content-Disposition"] = "attachment; filename=%s.pdf" % book.title.replace(" ", "_")
+        elif extention == "epub":
+            path_to_file = join(settings.DATABASE_BOOK_DIR, str(book.epub_file).split("/")[-1])
+            response["Content-type"] = "application/epub"
+            response["Content-Disposition"] = "attachment; filename=%s.epub" % book.title.replace(" ", "_")
+        elif extention == "mobi":
+            path_to_file = join(settings.DATABASE_BOOK_DIR, str(book.mobi_file).split("/")[-1])
+            response["Content-type"] = "application/mobi"
+            response["Content-Disposition"] = "attachment; filename=%s.mobi" % book.title.replace(" ", "_")
         response.write(open(path_to_file, "rb").read())
         return response
     except Book.DoesNotExist:

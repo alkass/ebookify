@@ -111,7 +111,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-PUBLIC_HOST_ADDRESS = loads(urlopen("https://api.ipify.org/?format=json").readline()).get("ip")
+#PUBLIC_HOST_ADDRESS = loads(urlopen("https://api.ipify.org/?format=json").readline()).get("ip")
 
 DATABASE_DIR = os.path.join(BASE_DIR, "database")
 DATABASE_BOOK_DIR = os.path.join(DATABASE_DIR, "books")

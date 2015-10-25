@@ -15,15 +15,6 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/semantic.min.js' %}"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $("form").hide();
-        if ($(window).width() >= 800)
-          $(".computer_screen").show();
-        else
-          $(".mobile_screen").show();
-      });
-    </script>
   </head>
   <body class="main body">
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -61,7 +52,7 @@
                   {% endif %}
                 </div>
                 <div class="col-md-1">
-                  <form class="computer_screen" action="/view/{{book.identification}}" method="get">
+                  <form action="/view/{{book.identification}}" method="get">
                     <button type="submit" class="fluid ui negative button"><i class="fa fa-external-link"></i></button>
                   </form>
                 </div>
@@ -73,15 +64,16 @@
                     <img  src="{% static 'media/images/no_cover.jpg' %}" width=100%>
                   {% endif %}
                 </div>
+
                 <div class="col-md-10">
-                  {% if book.authors|length > 0 %}
+                  {% if book.authors.all|length > 0 %}
                     <h5>
-                      {% if book.authors|length == 1 %}
+                      {% if book.authors.all|length == 1 %}
                         Author:
                       {% else %}
                         Authors:
                       {% endif %}
-                      {% for author in book.authors %}
+                      {% for author in book.authors.all %}
                         {% if forloop.last %}
                           <a href="/query/?author={{author}}">{{author}}</a>
                         {% else %}
@@ -91,14 +83,14 @@
                     </h5>
                   {% endif %}
 
-                  {% if book.categories|length > 0 %}
+                  {% if book.categories.all|length > 0 %}
                     <h5>
-                      {% if book.categories|length == 1 %}
+                      {% if book.categories.all|length == 1 %}
                         Category:
                       {% else %}
                         Categories:
                       {% endif %}
-                      {% for category in book.categories %}
+                      {% for category in book.categories.all %}
                         {% if forloop.last %}
                           <a href="/query/?category={{category}}">{{category}}</a>
                         {% else %}
@@ -111,10 +103,6 @@
                   {% if book.language %}
                     <h5>Language: <a href="/query/?language={{book.language}}">{{book.language}}</a></h5>
                   {% endif %}
-
-                  <form class="mobile_screen" action="/view/{{book.identification}}" method="get">
-                    <button type="submit" class="fluid ui negative button"><i class="fa fa-external-link"></i></button>
-                  </form>
 
                 </div>
 

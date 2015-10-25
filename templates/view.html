@@ -20,6 +20,8 @@
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+        $(".download.disabled").attr("disabled", "disabled");
+        $(".button.post").attr("disabled", "disabled");
         $(".button.download").click(function(){
           var new_text = "Downloading..."
           if ($(this).text() != new_text)
@@ -65,16 +67,14 @@
                         <br>
                       {% endif %}
 
-                      {% for author in book.authors %}
+                      {% for author in book.authors.all %}
                         <a href="/query/?author={{author}}"><h3>{{author}}</h3></a>
                         <i>Author</i>
-                        {% for line in author.brief %}
-                          <h5>{{line}}</h5>
-                        {% endfor %}
+                        <h5>{{author.brief}}</h5>
                         <h4></h4>
                       {% endfor %}
 
-                      {% for contributor in book.contributors %}
+                      {% for contributor in book.contributors.all %}
                         <a href="/query/?contributor={{contributor}}"><h3>{{contributor}}</h3></a>
                         <i>Contributor</i>
                         <h4></h4>
@@ -92,12 +92,10 @@
                       <h4></h4>
                       {% endif %}
 
-                      {% for category in book.categories %}
+                      {% for category in book.categories.all %}
                         <a href="/query/?category={{category}}"><h3>{{category}}</h3></a>
                         <i>Category</i>
-                        {% for line in category.brief %}
-                          <h5>{{line}}</h5>
-                        {% endfor %}
+                        <h5>{{category.brief}}</h5>
                         <h4></h4>
                       {% endfor %}
 
@@ -108,7 +106,32 @@
                         <br>
                       {% endif %}
 
-                      <a class="fluid ui red button download" href="/download/{{book.identification}}">Download</a>
+                      <div class="row">
+                        <div class="col-md-4">
+                          {% if book.pdf_file|length > 0 %}
+                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=pdf">Download PDF</a>
+                          {% else %}
+                            <a class="fluid ui red button download disabled">PDF Unavailable</a>
+                          {% endif %}
+                          <br>
+                        </div>
+                        <div class="col-md-4">
+                          {% if book.epub_file|length > 0 %}
+                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=epub">Download EPUB</a>
+                          {% else %}
+                            <a class="fluid ui red button download disabled">EPUB Unavailable</a>
+                          {% endif %}
+                          <br>
+                        </div>
+                        <div class="col-md-4">
+                          {% if book.mobi_file|length > 0 %}
+                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=mobi">Download MOBI</a>
+                          {% else %}
+                            <a class="fluid ui red button download disabled">MOBI Unavailable</a>
+                          {% endif %}
+                        </div>
+
+                      </div>
 
                       <h5>
                         This book has been viewed
@@ -156,5 +179,26 @@
     </div>
     {% endfor %}
     {% endif %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form class="" action="/post_feedback/" method="post">
+            <div class="ui form">
+              <div class="field">
+                <label>Write a Feedback</label>
+                <textarea></textarea>
+              </div>
+            </div>
+            <br>
+            <button class="fluid ui red button post">Post My Feedback</button>
+            <br>
+            <br>
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

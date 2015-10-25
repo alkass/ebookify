@@ -39,12 +39,11 @@ class BookForm(ModelForm):
         model = Book
         fields = [
         "title", "subtitle",
-        "author1", "author2", "author3", "author4", "author5",
-        "contributor1", "contributor2", "contributor3",
+        "authors",
+        "contributors",
         "language",
-        "category1", "category2", "category3", "category4", "category5",
-        "category6", "category7", "category8", "category9", "category10",
-        "file1", "file2", "file3",
+        "categories",
+        "pdf_file", "epub_file", "mobi_file",
         "cover",
         "description",
         "num_pages",
@@ -57,8 +56,30 @@ class BookForm(ModelForm):
         return sub("[ \t]+", " ", self.cleaned_data["subtitle"]).strip().title()
     def clean_num_pages(self):
         if self.cleaned_data["num_pages"] < 0:
-            raise ValidationError("Books can't contain less than zero pages")
+            raise ValidationError("Books can't contain less than zero pages.")
         return self.cleaned_data["num_pages"]
+    def clean_file1(self):
+        file_path = self.cleaned_data["file1"]
+        file_name = str(file_path).split("/")[-1]
+        file_name_tokens = file_name.split(".")
+        if len(file_name_tokens) == 1:
+            raise ValidationError("Couldn't detect ebook file format.")
+        else:
+            file_extention = file_name_tokens[-1].strip().lower()
+            if file_extention != "pdf":
+                raise ValidationError("Expected a PDF file.")
+        return file_path
+    def clean_file2(self):
+        file_path = self.cleaned_data["file2"]
+        file_name = str(file_path).split("/")[-1]
+        file_name_tokens = file_name.split(".")
+        if len(file_name_tokens) == 1:
+            raise ValidationError("Couldn't detect ebook file format.")
+        else:
+            file_extention = file_name_tokens[-1].strip().lower()
+            if file_extention != "epub":
+                raise ValidationError("Expected an EPUB file.")
+        return file_path
 
 from .models import BookFeedback
 class BookFeedbackForm(ModelForm):
