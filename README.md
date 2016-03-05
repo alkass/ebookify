@@ -9,13 +9,13 @@
 ```
 
 # Creating an Admin Account
-```shell
+```bash
   python manage.py createsuperuser
 ```
 
 
 # Running the Library
-```shell
+```bash
   python manage.py runserver 0.0.0.0:80
 ```
 
