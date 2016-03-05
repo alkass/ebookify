@@ -13,13 +13,13 @@
   python manage.py createsuperuser
 ```
 
-
 # Running the Library
 ```bash
   python manage.py runserver 0.0.0.0:80
 ```
+Your library should now be running at [localhost:80](localhost).
 
-
+Your admin panel is available at [localhost:80/admin](localhost/admin)
 
 # Author
 [Fadi Hanna Al-Kass](http://github.com/alkass)
