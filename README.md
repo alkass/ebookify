@@ -15,12 +15,12 @@
   python manage.py migrate
 ```
 
-### Create an Admin Account
+### 3. Create an Admin Account
 ```bash
   python manage.py createsuperuser
 ```
 
-### Run the Library
+### 4. Run the Library
 ```bash
   sudo python manage.py runserver 0.0.0.0:80
 ```
