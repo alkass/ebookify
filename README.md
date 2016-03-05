@@ -3,12 +3,12 @@
 
 # How To
 
-### Install the Required Package(s)
+### 1. Install the Required Package(s)
 ```bash
   sudo pip install -r requirements.txt
 ```
 
-### Create the Database (first use only)
+### 2. Create the Database (first use only)
 ```bash
   python manage.py makemigrations
   
