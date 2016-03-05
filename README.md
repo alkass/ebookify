@@ -28,5 +28,5 @@ Your library should now be running at [localhost:80](http://localhost).
 
 Your admin panel is available at [localhost:80/admin](http://localhost/admin).
 
-# Author
+# Author(s) and Contributor(s)
 The project was written and is currently only maintained by [Fadi Hanna Al-Kass](http://github.com/alkass).
