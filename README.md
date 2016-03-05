@@ -17,9 +17,9 @@
 ```bash
   python manage.py runserver 0.0.0.0:80
 ```
-Your library should now be running at [localhost:80](localhost).
+Your library should now be running at [localhost:80](http://localhost).
 
-Your admin panel is available at [localhost:80/admin](localhost/admin)
+Your admin panel is available at [localhost:80/admin](http://localhost/admin).
 
 # Author
 [Fadi Hanna Al-Kass](http://github.com/alkass)
