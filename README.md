@@ -1,24 +1,26 @@
 # ebookify
-<i>ebookify</i> is a web-based electronic library project written on top of the [django web framework](#).
+<i>ebookify</i> is a web-based electronic library project written using the django web framework.
 
-# Installing the Required Package(s)
+# How To
+
+### Install the Required Package(s)
 ```bash
   sudo pip install -r requirements.txt
 ```
 
-# Creating the Database (first use only)
+### Create the Database (first use only)
 ```bash
   python manage.py makemigrations
   
   python manage.py migrate
 ```
 
-# Creating an Admin Account
+### Create an Admin Account
 ```bash
   python manage.py createsuperuser
 ```
 
-# Running the Library
+### Run the Library
 ```bash
   sudo python manage.py runserver 0.0.0.0:80
 ```
