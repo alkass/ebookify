@@ -2,7 +2,7 @@
 <i>ebookify</i> is a web-based electronic library project written on top of the [django web framework](#).
 
 # Creating the Database (first use only)
-```shell
+```bash
   python manage.py makemigrations
   
   python manage.py migrate
