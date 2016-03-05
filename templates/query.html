@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'media/images/icon.png' %}" type="favicon/ico" />
+    <title>ebookify - Your Own Electronic Book Library</title>
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/semantic.min.js' %}"></script>
+  </head>
+  <body class="main body">
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            <img alt="ebookify">
+          </a>
+          <p class="navbar-text">Your Own Electronic Book Library</p>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ol class="breadcrumb">
+            {% if books|length == 1 %}
+              <li><a>1 book found</a></li>
+            {% else %}
+              <li><a>{{books|length}} books found</a></li>
+            {% endif %}
+          </ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {% for book in books %}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="col-md-11">
+                  {% if book.subtitle|length > 0 %}
+                    <h3>{{book.title}}: {{book.subtitle}}</h3>
+                  {% else %}
+                    <h3>{{book.title}}</h3>
+                  {% endif %}
+                </div>
+                <div class="col-md-1">
+                  <form action="/view/{{book.identification}}" method="get">
+                    <button type="submit" class="fluid ui negative button"><i class="fa fa-external-link"></i></button>
+                  </form>
+                </div>
+                <hr>
+                <div class="col-md-2">
+                  {% if book.cover %}
+                    <img src="/cover/{{book.identification}}" class="ui rounded image" width=100% />
+                  {% else %}
+                    <img  src="{% static 'media/images/no_cover.jpg' %}" width=100%>
+                  {% endif %}
+                </div>
+
+                <div class="col-md-10">
+                  {% if book.authors.all|length > 0 %}
+                    <h5>
+                      {% if book.authors.all|length == 1 %}
+                        Author:
+                      {% else %}
+                        Authors:
+                      {% endif %}
+                      {% for author in book.authors.all %}
+                        {% if forloop.last %}
+                          <a href="/query/?author={{author}}">{{author}}</a>
+                        {% else %}
+                          <a href="/query/?author={{author}}">{{author}}</a>,
+                        {% endif %}
+                      {% endfor %}
+                    </h5>
+                  {% endif %}
+
+                  {% if book.categories.all|length > 0 %}
+                    <h5>
+                      {% if book.categories.all|length == 1 %}
+                        Category:
+                      {% else %}
+                        Categories:
+                      {% endif %}
+                      {% for category in book.categories.all %}
+                        {% if forloop.last %}
+                          <a href="/query/?category={{category}}">{{category}}</a>
+                        {% else %}
+                          <a href="/query/?category={{category}}">{{category}}</a>,
+                        {% endif %}
+                      {% endfor %}
+                    </h5>
+                  {% endif %}
+
+                  {% if book.language %}
+                    <h5>Language: <a href="/query/?language={{book.language}}">{{book.language}}</a></h5>
+                  {% endif %}
+
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

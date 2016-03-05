@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ebookify - Your Own Electronic Book Library</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/semantic.min.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Upload a Book</h2>
+          <form action="/upload_page/" method="POST">
+            {% csrf_token %}
+
+            <input type="submit" class="ui red button" value="Upload Now">
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
