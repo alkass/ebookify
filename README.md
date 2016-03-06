@@ -3,7 +3,7 @@
 
 # How To
 
-### 1. Install python-dev
+### 1. Install -y python-dev
 ```bash
   sudo apt-get install python-dev
 ```
