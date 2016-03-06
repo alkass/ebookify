@@ -3,24 +3,29 @@
 
 # How To
 
-### 1. Install the Required Package(s)
+### 1. Install django
+```bash
+  sudo pip install django
+```
+
+### 2. Install the Required Package(s)
 ```bash
   sudo pip install -r requirements.txt
 ```
 
-### 2. Create the Database (first use only)
+### 3. Create the Database (first use only)
 ```bash
   python manage.py makemigrations
   
   python manage.py migrate
 ```
 
-### 3. Create an Admin Account
+### 4. Create an Admin Account
 ```bash
   python manage.py createsuperuser
 ```
 
-### 4. Run the Library
+### 5. Run the Library
 ```bash
   sudo python manage.py runserver 0.0.0.0:80
 ```
