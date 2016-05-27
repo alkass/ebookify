@@ -20,7 +20,7 @@
   python manage.py createsuperuser
 ```
 
-### 3. Run the Library
+### 4. Run the Library
 ```bash
   sudo python manage.py runserver 0.0.0.0:80
 ```
