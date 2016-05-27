@@ -3,29 +3,24 @@
 
 # How To
 
-### 1. Install -y python-dev
-```bash
-  sudo apt-get install python-dev
-```
-
-### 2. Install the Required Package(s)
+### 1. Install the Required Package(s)
 ```bash
   sudo pip install -r requirements.txt
 ```
 
-### 3. Create the Database (first use only)
+### 2. Create the Database (first use only)
 ```bash
   python manage.py makemigrations
   
   python manage.py migrate
 ```
 
-### 4. Create an Admin Account
+### 3. Create an Admin Account
 ```bash
   python manage.py createsuperuser
 ```
 
-### 5. Run the Library
+### 3. Run the Library
 ```bash
   sudo python manage.py runserver 0.0.0.0:80
 ```
