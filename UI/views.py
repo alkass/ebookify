@@ -18,7 +18,7 @@ def homepage(request):
 def main_options(request):
     return render(request, "main_options.html", {})
 
-def search_page(request):
+def search(request):
     authors = Author.objects.all().exclude(discoverable=False).order_by("full_name")
     categories = Category.objects.all().exclude(discoverable=False).order_by("name")
     languages = Language.objects.all().exclude(discoverable=False).order_by("name")

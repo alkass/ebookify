@@ -16,7 +16,10 @@ SECRET_KEY = '&og7=x8dby_4h1i$l#2=-h=2s=i%k+1*2%8z#hj1mj0c2!-lqw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    u'fadi.ro.lt',
+    u'www.fadi.iqtp.org'
+]
 
 
 # Application definition
@@ -99,6 +102,6 @@ STATICFILES_DIRS = (
 
 #PUBLIC_HOST_ADDRESS = loads(urlopen("https://api.ipify.org/?format=json").readline()).get("ip")
 
-DATABASE_DIR = os.path.join(BASE_DIR, "database")
+DATABASE_DIR = os.path.join("", "database")
 DATABASE_BOOK_DIR = os.path.join(DATABASE_DIR, "books")
 DATABASE_COVER_DIR = os.path.join(DATABASE_DIR, "covers")
