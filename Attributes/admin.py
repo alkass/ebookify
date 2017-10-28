@@ -122,21 +122,8 @@ class BookAdmin(ModelAdmin):
         make_selected_unrecommended
         ]
 
-from .models import BookFeedback
-from .forms import BookFeedbackForm
-class BookFeedbackAdmin(ModelAdmin):
-    def make_selected_discoverable(modeladmin, request, queryset):
-        queryset.update(discoverable=True)
-    def make_selected_undiscoverable(modeladmin, request, queryset):
-        queryset.update(discoverable=False)
-    form = BookFeedbackForm
-    list_display = ["book", "feedback_date", "feedback", "discoverable"]
-    search_fields = ["book", "feedback_date", "feedback"]
-    actions = [make_selected_discoverable, make_selected_undiscoverable]
-
 site.register(Author, AuthorAdmin)
 site.register(Contributor, ContributorAdmin)
 site.register(Language, LanguageAdmin)
 site.register(Category, CategoryAdmin)
 site.register(Book, BookAdmin)
-site.register(BookFeedback, BookFeedbackAdmin)

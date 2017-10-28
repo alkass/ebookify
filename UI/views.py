@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.conf import settings
 from os.path import join
-from Attributes.models import Author, Contributor, Category, Language, Book, BookFeedback
+from Attributes.models import Author, Contributor, Category, Language, Book
 from Attributes.forms import CategoryForm, BookForm
 from random import randint
 from re import sub
@@ -22,27 +22,7 @@ def search_page(request):
     authors = Author.objects.all().exclude(discoverable=False).order_by("full_name")
     categories = Category.objects.all().exclude(discoverable=False).order_by("name")
     languages = Language.objects.all().exclude(discoverable=False).order_by("name")
-    return render(request, "search_page.html", locals())
-
-def upload_page(request):
-    form = CategoryForm()
-    return render(request, "upload_page.html", {"form":BookForm})
-
-def request_page(request):
-    return render(request, "request_page.html", {})
-
-def check_request_status_page(request):
-    return render(request, "check_request_status_page.html", {})
-
-def initials(request, full_name):
-    tokenized_name = full_name.title().strip().split(" ")
-    _initials = None
-    if len(tokenized_name) == 1:
-        _initials = tokenized_name[0][0]
-    else:
-        _initials = "%s%s" % (tokenized_name[0][0], tokenized_name[-1][0])
-    initials_file_path = join(settings.STATICFILES_DIRS[0], "media", "author_initials", "%s.png" % _initials)
-    return HttpResponse(file(initials_file_path, "rb").read(), {"Content-type":"img/png"})
+    return render(request, "search.html", locals())
 
 def cover(request, identification):
     cover_img_name = str(Book.objects.exclude(discoverable=False).get(identification=identification).cover).split("/")[-1]
@@ -78,9 +58,6 @@ def view(request, identification):
         if book.discoverable:
             book.num_views += 1
             book.save()
-            feedbacks = BookFeedback.objects.filter(book=book).exclude(discoverable=False)
-            for i in range(len(feedbacks)):
-                feedbacks[i].feedback = feedbacks[i].feedback.split("\n")
             return render(request, "view.html", locals())
         else:
             error = "This book is inaccessable. Sorry for the inconvenience."

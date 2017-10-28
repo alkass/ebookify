@@ -71,15 +71,3 @@ class Book(Model):
 
     def __unicode__(self):
         return self.title
-
-class BookFeedback(Model):
-    class Meta:
-        verbose_name = "Book Feedback"
-        verbose_name_plural = "Book Feedbacks"
-    book = ForeignKey(Book)
-    feedback = TextField(max_length=1000, blank=False, null=True)
-    feedback_date = DateTimeField(auto_now=False, auto_now_add=True)
-    discoverable = BooleanField(help_text="Make this comment visible in the book view page", default=True)
-
-    def __unicode__(self):
-        return str(self.book.identification)

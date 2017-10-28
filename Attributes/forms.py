@@ -80,9 +80,3 @@ class BookForm(ModelForm):
             if file_extention != "epub":
                 raise ValidationError("Expected an EPUB file.")
         return file_path
-
-from .models import BookFeedback
-class BookFeedbackForm(ModelForm):
-    class Meta:
-        model = BookFeedback
-        fields = ["book", "feedback", "discoverable"]
