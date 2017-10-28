@@ -18,7 +18,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     u'fadi.ro.lt',
-    u'www.fadi.iqtp.org'
+    u'www.fadi.iqtp.org',
+    u'www.emag.iqtp.org'
 ]
 
 
