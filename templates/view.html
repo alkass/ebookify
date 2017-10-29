@@ -19,8 +19,7 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/semantic.min.js' %}"></script>
     <style rel="stylesheer">
-    .hidden
-    {
+    .hidden {
       visibility: hidden
     }
     </style>
@@ -61,149 +60,98 @@
                   {% if error %}
                     <h3>{{error}}</h3>
                   {% else %}
-                      <h2>{{book.title}}<small><br>{{book.subtitle}}</small></h2>
-                      <hr>
-
-                      {% if book.description|length > 0 %}
-                        <a><h3>Description</h3></a>
-                        <i>Book Overview</i>
-                        <h5>{{book.description}}</h5>
-                        <br>
-                      {% endif %}
-
-                      {% for author in book.authors.all %}
-                        <a href="/query/?author={{author}}"><h3>{{author}}</h3></a>
-                        <i>Author</i>
-                        <h5>{{author.brief}}</h5>
-                        <h4></h4>
-                      {% endfor %}
-
-                      {% for contributor in book.contributors.all %}
-                        <a href="/query/?contributor={{contributor}}"><h3>{{contributor}}</h3></a>
-                        <i>Contributor</i>
-                        <h4></h4>
-                      {% endfor %}
-
-                      {% if book.num_pages > 0 %}
-                        <a><h3>{{book.num_pages}}</h3></a>
-                        <i>Number of Pages</i>
-                        <h4></h4>
-                      {% endif %}
-
-                      {% if book.language %}
-                      <a href="/query/?language={{book.language}}"><h3>{{book.language}}</h3></a>
-                      <i>Language</i>
-                      <h4></h4>
-                      {% endif %}
-
-                      {% for category in book.categories.all %}
-                        <a href="/query/?category={{category}}"><h3>{{category}}</h3></a>
-                        <i>Category</i>
-                        <h5>{{category.brief}}</h5>
-                        <h4></h4>
-                      {% endfor %}
-
-                      {% if book.recommended %}
-                        <a><h3>This book is recommended</h3></a>
-                        <i>Recommended books are prioritized in all search queries</i>
-                        <br>
-                        <br>
-                      {% endif %}
-
-                      <div class="row">
-                        <div class="col-md-4">
-                          {% if book.pdf_file|length > 0 %}
-                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=pdf">Download PDF</a>
-                          {% else %}
-                            <a class="fluid ui red button download disabled">PDF Unavailable</a>
-                          {% endif %}
-                          <br>
-                        </div>
-                        <div class="col-md-4">
-                          {% if book.epub_file|length > 0 %}
-                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=epub">Download EPUB</a>
-                          {% else %}
-                            <a class="fluid ui red button download disabled">EPUB Unavailable</a>
-                          {% endif %}
-                          <br>
-                        </div>
-                        <div class="col-md-4">
-                          {% if book.mobi_file|length > 0 %}
-                            <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=mobi">Download MOBI</a>
-                          {% else %}
-                            <a class="fluid ui red button download disabled">MOBI Unavailable</a>
-                          {% endif %}
-                        </div>
-
-                      </div>
-
-                      <h5>
-                        This book has been viewed
-                        {% if book.num_views == 1 %}
-                          one time
-                        {% else %}
-                          {{book.num_views}} times
-                        {% endif %}
-                        and downloaded
-                        {% if book.num_downloads == 1 %}
-                          one time
-                        {% else %}
-                          {{book.num_downloads}} times.
-                        {% endif %}
-                      </h5>
+                  <h2>{{book.title}}<small><br>{{book.subtitle}}</small></h2>
+                  <hr>
+                  {% if book.description|length > 0 %}
+                    <a><h3>Description</h3></a>
+                    <i>Book Overview</i>
+                    <h5>{{book.description}}</h5>
+                    <br>
                   {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    {% if not error %}
-    {% for feedback in feedbacks %}
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="jumbotron">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <h3>{{feedback.feedback_date}}</h3>
-                  <br>
-                  {% for line in feedback.feedback %}
-                    <h4>{{line}}</h4>
+                  {% for author in book.authors.all %}
+                    <a href="/query/?author={{author}}"><h3>{{author}}</h3></a>
+                    <i>Author</i>
+                    <h5>{{author.brief}}</h5>
+                    <h4></h4>
                   {% endfor %}
-                </div>
-              </div>
+
+                  {% for contributor in book.contributors.all %}
+                    <a href="/query/?contributor={{contributor}}"><h3>{{contributor}}</h3></a>
+                    <i>Contributor</i>
+                    <h4></h4>
+                  {% endfor %}
+
+                  {% if book.num_pages > 0 %}
+                    <a><h3>{{book.num_pages}}</h3></a>
+                    <i>Number of Pages</i>
+                    <h4></h4>
+                  {% endif %}
+
+                  {% if book.language %}
+                  <a href="/query/?language={{book.language}}"><h3>{{book.language}}</h3></a>
+                  <i>Language</i>
+                  <h4></h4>
+                  {% endif %}
+
+                  {% for category in book.categories.all %}
+                    <a href="/query/?category={{category}}"><h3>{{category}}</h3></a>
+                    <i>Category</i>
+                    <h5>{{category.brief}}</h5>
+                    <h4></h4>
+                  {% endfor %}
+
+                  {% if book.recommended %}
+                    <a><h3>This book is recommended</h3></a>
+                    <i>Recommended books are prioritized in all search queries</i>
+                    <br>
+                    <br>
+                  {% endif %}
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      {% if book.pdf_file|length > 0 %}
+                        <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=pdf">Download PDF</a>
+                      {% else %}
+                        <a class="fluid ui red button download disabled">PDF Unavailable</a>
+                      {% endif %}
+                      <br>
+                    </div>
+                    <div class="col-md-4">
+                      {% if book.epub_file|length > 0 %}
+                        <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=epub">Download EPUB</a>
+                      {% else %}
+                        <a class="fluid ui red button download disabled">EPUB Unavailable</a>
+                      {% endif %}
+                      <br>
+                    </div>
+                    <div class="col-md-4">
+                      {% if book.mobi_file|length > 0 %}
+                        <a class="fluid ui red button download" href="/download/?identification={{book.identification}}&extention=mobi">Download MOBI</a>
+                      {% else %}
+                        <a class="fluid ui red button download disabled">MOBI Unavailable</a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <h5>
+                    This book has been viewed
+                    {% if book.num_views == 1 %}
+                      one time
+                    {% else %}
+                      {{book.num_views}} times
+                    {% endif %}
+                    and downloaded
+                    {% if book.num_downloads == 1 %}
+                      one time
+                    {% else %}
+                      {{book.num_downloads}} times.
+                    {% endif %}
+                  </h5>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </div>
-    {% endfor %}
-    {% endif %}
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <form class="" action="/post_feedback/" method="get">
-            <div class="ui form">
-              <div class="field">
-                <label>Write a Review</label>
-                <textarea id="review" placeholder="Your review must be 10 characters minimum" disabled></textarea>
-              </div>
-            </div>
-            <br>
-            <input type="text" class="hidden" name="identification" value="{{book.identification}}">
-            <button class="fluid ui red button post"disabled>Submit My Review</button>
-            <br>
-            <br>
-            <br>
-            <br>
-          </form>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+  </div>
+</div>
